@@ -7,11 +7,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
 
-        overlayWindow = NotchOverlayWindow()
-        overlayWindow?.startTracking()
+        requestAccessibility()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.overlayWindow = NotchOverlayWindow()
+            self.overlayWindow?.startTracking()
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         overlayWindow?.stopTracking()
+    }
+
+    private func requestAccessibility() {
+        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+        let trusted = AXIsProcessTrustedWithOptions(options)
+        if !trusted {
+            print("Accessibility not granted. Please enable in System Settings → Privacy & Security → Accessibility")
+        }
     }
 }

@@ -5,11 +5,11 @@
       "name" : "NotchBox",
       "path" : "/Users/daniel/Documents/BetterNotch",
       "projects" : [
-        "142ffb01447246c294386fa4ba0dc8ec0f4ccca8c1d563a54b1a8159046e1c92",
+        "dc515b39e9dc5b3e1f58f973cfb090c7d72a7ffde6559f11c5624c8f0ff05b0e",
         "2fe4a7fafe4f61e1ee2a28439d0c33e1acb1b8d5266d22fd5059da7ce44ad32b"
       ]
     },
-    "signature" : "0c1d72d79b71f541fa62f64918baf68b9155e7f8e2b4bf2a845d03aa65bf6229",
+    "signature" : "388524e5d7db8e984d5311c68c0e9d6f3500fad8e829e8db6c82fcbfdcd03dd9",
     "type" : "workspace"
   },
   {
@@ -355,12 +355,12 @@
       "projectIsPackage" : "true",
       "projectName" : "NotchBox",
       "targets" : [
-        "5cba5968688aa780481cd2645eb4dc0549ba47ea1043f014431ae18381c1876f",
-        "e7fbee95da5256c94838879711386b09d67fa1ee9f05a64a509dc5ebe72a9017",
+        "d7ce79da505e7a1dd23aaa60011948c01de69582d2edad8ca3d4e3aba8ea46b4",
+        "ca22536d1e6ffff34fa17f3ad314c062f609787f2743952ef3df2d974db3e37c",
         "4420a40101964df7427425af3dd76e80eb961af12967e7a6fea9a0c8ae0d1d30"
       ]
     },
-    "signature" : "142ffb01447246c294386fa4ba0dc8ec0f4ccca8c1d563a54b1a8159046e1c92",
+    "signature" : "dc515b39e9dc5b3e1f58f973cfb090c7d72a7ffde6559f11c5624c8f0ff05b0e",
     "type" : "project"
   },
   {
@@ -380,7 +380,9 @@
               "-framework",
               "Cocoa",
               "-framework",
-              "CoreGraphics"
+              "CoreGraphics",
+              "-framework",
+              "ApplicationServices"
             ],
             "OTHER_SWIFT_FLAGS" : [
               "$(inherited)",
@@ -432,7 +434,9 @@
               "-framework",
               "Cocoa",
               "-framework",
-              "CoreGraphics"
+              "CoreGraphics",
+              "-framework",
+              "ApplicationServices"
             ],
             "OTHER_SWIFT_FLAGS" : [
               "$(inherited)",
@@ -571,7 +575,7 @@
       "productTypeIdentifier" : "com.apple.product-type.tool",
       "type" : "standard"
     },
-    "signature" : "5cba5968688aa780481cd2645eb4dc0549ba47ea1043f014431ae18381c1876f",
+    "signature" : "d7ce79da505e7a1dd23aaa60011948c01de69582d2edad8ca3d4e3aba8ea46b4",
     "type" : "target"
   },
   {
@@ -591,7 +595,9 @@
               "-framework",
               "Cocoa",
               "-framework",
-              "CoreGraphics"
+              "CoreGraphics",
+              "-framework",
+              "ApplicationServices"
             ],
             "OTHER_SWIFT_FLAGS" : [
               "$(inherited)",
@@ -647,7 +653,9 @@
                 "-framework",
                 "Cocoa",
                 "-framework",
-                "CoreGraphics"
+                "CoreGraphics",
+                "-framework",
+                "ApplicationServices"
               ]
             }
           },
@@ -666,7 +674,9 @@
               "-framework",
               "Cocoa",
               "-framework",
-              "CoreGraphics"
+              "CoreGraphics",
+              "-framework",
+              "ApplicationServices"
             ],
             "OTHER_SWIFT_FLAGS" : [
               "$(inherited)",
@@ -721,7 +731,9 @@
                 "-framework",
                 "Cocoa",
                 "-framework",
-                "CoreGraphics"
+                "CoreGraphics",
+                "-framework",
+                "ApplicationServices"
               ]
             }
           },
@@ -827,7 +839,7 @@
       "productTypeIdentifier" : "org.swift.product-type.common.object",
       "type" : "standard"
     },
-    "signature" : "e7fbee95da5256c94838879711386b09d67fa1ee9f05a64a509dc5ebe72a9017",
+    "signature" : "ca22536d1e6ffff34fa17f3ad314c062f609787f2743952ef3df2d974db3e37c",
     "type" : "target"
   },
   {

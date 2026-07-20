@@ -7,12 +7,24 @@ struct TrackInfoFetcher {
     }
 
     private static func fetchFromSafari() -> String? {
-        let script = "tell application \"Safari\" to if (count of windows) > 0 then return name of current tab of window 1"
+        let script = """
+        tell application "Safari"
+            if (count of windows) = 0 then return ""
+            set tabTitle to name of current tab of window 1
+            return tabTitle
+        end tell
+        """
         return runOascript(script)
     }
 
     private static func fetchFromChrome() -> String? {
-        let script = "tell application \"Google Chrome\" to if (count of windows) > 0 then return title of active tab of front window"
+        let script = """
+        tell application "Google Chrome"
+            if (count of windows) = 0 then return ""
+            set tabTitle to title of active tab of front window
+            return tabTitle
+        end tell
+        """
         return runOascript(script)
     }
 

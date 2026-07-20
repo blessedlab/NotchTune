@@ -1,75 +1,16 @@
 import Foundation
-import CoreAudio
 
 struct VolumeControl {
     static var volume: Float {
         get {
-            var deviceID = AudioDeviceID(0)
-            var size = UInt32(MemoryLayout<AudioDeviceID>.size)
-
-            var propertyAddress = AudioObjectPropertyAddress(
-                mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-                mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMain
-            )
-
-            AudioObjectGetPropertyData(
-                AudioObjectID(kAudioObjectSystemObject),
-                &propertyAddress,
-                0, nil,
-                &size,
-                &deviceID
-            )
-
-            propertyAddress = AudioObjectPropertyAddress(
-                mSelector: kAudioDevicePropertyVolumeScalar,
-                mScope: kAudioDevicePropertyScopeOutput,
-                mElement: kAudioObjectPropertyElementMain
-            )
-
-            var vol: Float = 0
-            AudioObjectGetPropertyData(
-                deviceID,
-                &propertyAddress,
-                0, nil,
-                &size,
-                &vol
-            )
-
-            return vol
+            let script = "output volume of (get volume settings)"
+            guard let output = runOascript(script),
+                  let val = Float(output) else { return 0.5 }
+            return val / 100.0
         }
         set {
-            var deviceID = AudioDeviceID(0)
-            var size = UInt32(MemoryLayout<AudioDeviceID>.size)
-
-            var propertyAddress = AudioObjectPropertyAddress(
-                mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-                mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMain
-            )
-
-            AudioObjectGetPropertyData(
-                AudioObjectID(kAudioObjectSystemObject),
-                &propertyAddress,
-                0, nil,
-                &size,
-                &deviceID
-            )
-
-            var volume = newValue
-            propertyAddress = AudioObjectPropertyAddress(
-                mSelector: kAudioDevicePropertyVolumeScalar,
-                mScope: kAudioDevicePropertyScopeOutput,
-                mElement: kAudioObjectPropertyElementMain
-            )
-
-            AudioObjectSetPropertyData(
-                deviceID,
-                &propertyAddress,
-                0, nil,
-                UInt32(MemoryLayout<Float>.size),
-                &volume
-            )
+            let percent = Int(newValue * 100)
+            _ = runOascript("set volume output volume \(percent)")
         }
     }
 
@@ -79,6 +20,25 @@ struct VolumeControl {
         case 0..<0.33: return "speaker.wave.1.fill"
         case 0.33..<0.66: return "speaker.wave.2.fill"
         default: return "speaker.wave.3.fill"
+        }
+    }
+
+    private static func runOascript(_ script: String) -> String? {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        process.standardError = pipe
+
+        do {
+            try process.run()
+            process.waitUntilExit()
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            return String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        } catch {
+            return nil
         }
     }
 }
