@@ -12,11 +12,11 @@ class NotchOverlayWindow: NSWindow {
     init() {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
-        let windowWidth: CGFloat = 300
-        let windowHeight: CGFloat = 100
+        let windowWidth: CGFloat = 280
+        let windowHeight: CGFloat = 85
 
         let x = (screenFrame.width - windowWidth) / 2
-        let y = screenFrame.height - windowHeight - 5
+        let y = screenFrame.height - windowHeight
 
         let windowRect = NSRect(x: x, y: y, width: windowWidth, height: windowHeight)
 
