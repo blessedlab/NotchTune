@@ -8,7 +8,7 @@ class NotchOverlayWindow: NSWindow {
     private var isShowing = false
     private var isAnimating = false
     private let finalWidth: CGFloat = 280
-    private let finalHeight: CGFloat = 120
+    private let finalHeight: CGFloat = 140
     private let notchWidth: CGFloat = 220
 
     init() {
@@ -146,7 +146,7 @@ class NotchOverlayWindow: NSWindow {
         self.setFrame(expandedRect, display: false)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
+            context.duration = 0.25
             context.timingFunction = CAMediaTimingFunction(controlPoints: 0.55, 0.0, 0.85, 0.36)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(collapsedRect, display: true)
