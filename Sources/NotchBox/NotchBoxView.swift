@@ -27,8 +27,6 @@ struct NotchShape: Shape {
 
 struct NotchBoxView: View {
     @State var trackName: String
-    @State var scale: CGFloat = 0.0
-    @State var opacity: Double = 0.0
 
     var body: some View {
         VStack(spacing: 0) {
@@ -79,9 +77,5 @@ struct NotchBoxView: View {
             NotchShape()
                 .fill(Color.black)
         )
-        .scaleEffect(scale, anchor: .top)
-        .opacity(opacity)
-        .animation(.spring(response: 0.5, dampingFraction: 0.45), value: scale)
-        .animation(.easeOut(duration: 0.15), value: opacity)
     }
 }

@@ -8,13 +8,12 @@ class NotchOverlayWindow: NSWindow {
     private var isHoveringOverWindow = false
     private var notchView: NotchBoxView?
     private var isShowing = false
+    private let windowWidth: CGFloat = 280
+    private let windowHeight: CGFloat = 120
 
     init() {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
-        let windowWidth: CGFloat = 280
-        let windowHeight: CGFloat = 120
-
         let x = (screenFrame.width - windowWidth) / 2
         let y = screenFrame.height - windowHeight
 
@@ -34,7 +33,13 @@ class NotchOverlayWindow: NSWindow {
         self.contentView = NSHostingView(rootView: contentView)
         self.notchView = contentView
 
-        self.alphaValue = 0
+        let collapsedRect = NSRect(
+            x: (screen.frame.width - windowWidth) / 2,
+            y: screen.frame.height,
+            width: windowWidth,
+            height: 0
+        )
+        self.setFrame(collapsedRect, display: false)
         self.orderOut(nil)
     }
 
@@ -111,35 +116,47 @@ class NotchOverlayWindow: NSWindow {
 
         NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
 
-        notchView?.scale = 0.0
-        notchView?.opacity = 0.0
+        let screen = NSScreen.main!
+        let collapsedRect = NSRect(
+            x: (screen.frame.width - windowWidth) / 2,
+            y: screen.frame.height,
+            width: windowWidth,
+            height: 0
+        )
+        let expandedRect = NSRect(
+            x: (screen.frame.width - windowWidth) / 2,
+            y: screen.frame.height - windowHeight,
+            width: windowWidth,
+            height: windowHeight
+        )
 
-        self.alphaValue = 1.0
-        self.orderOut(nil)
+        self.setFrame(collapsedRect, display: false)
+        self.orderFront(nil)
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.orderFront(nil)
-
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.45
-                context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
-                context.allowsImplicitAnimation = true
-                self.notchView?.scale = 1.0
-                self.notchView?.opacity = 1.0
-            }, completionHandler: nil)
-        }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.4
+            context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
+            context.allowsImplicitAnimation = true
+            self.animator().setFrame(expandedRect, display: true)
+        }, completionHandler: nil)
 
         isShowing = true
     }
 
     private func hideWindow() {
+        let screen = NSScreen.main!
+        let collapsedRect = NSRect(
+            x: (screen.frame.width - windowWidth) / 2,
+            y: screen.frame.height,
+            width: windowWidth,
+            height: 0
+        )
+
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.2
             context.timingFunction = CAMediaTimingFunction(name: .easeIn)
             context.allowsImplicitAnimation = true
-            self.notchView?.scale = 0.0
-            self.notchView?.opacity = 0.0
+            self.animator().setFrame(collapsedRect, display: true)
         }, completionHandler: { [weak self] in
             self?.orderOut(nil)
             self?.isShowing = false
