@@ -188,7 +188,7 @@ class NotchOverlayWindow: NSWindow {
         self.orderFront(nil)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
+            context.duration = 0.27
             context.timingFunction = CAMediaTimingFunction(name: .easeOut)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(expandedRect, display: true)
@@ -213,7 +213,7 @@ class NotchOverlayWindow: NSWindow {
         let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
+            context.duration = 0.27
             context.timingFunction = CAMediaTimingFunction(name: .easeIn)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(collapsedRect, display: true)
