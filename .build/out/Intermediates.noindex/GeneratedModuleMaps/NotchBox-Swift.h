@@ -347,6 +347,7 @@ extern "C" {
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import AppKit;
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 #endif
@@ -384,6 +385,14 @@ SWIFT_CLASS("_TtC8NotchBox18NotchOverlayWindow")
 @interface NotchOverlayWindow : NSWindow
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)backingStoreType defer:(BOOL)flag SWIFT_UNAVAILABLE;
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+SWIFT_CLASS("_TtC8NotchBox14WeatherService")
+@interface WeatherService : NSObject <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 #endif // defined(__OBJC__)

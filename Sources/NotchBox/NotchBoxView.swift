@@ -27,19 +27,73 @@ struct NotchShape: Shape {
 
 struct NotchBoxView: View {
     @State var trackName: String
+    @State private var volume: Float = VolumeControl.volume
+    @State private var weather: WeatherData?
+    @State private var showVolume = false
 
     var body: some View {
         VStack(spacing: 0) {
             Spacer().frame(height: 45)
 
-            Text(trackName)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundColor(.white)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .frame(maxWidth: .infinity)
+            HStack(spacing: 12) {
+                if let weather = weather {
+                    HStack(spacing: 4) {
+                        Image(systemName: weather.icon)
+                            .font(.system(size: 11))
+                            .foregroundColor(.white.opacity(0.8))
+                        Text("\(weather.temperature)°")
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                }
 
-            Spacer().frame(height: 8)
+                Spacer()
+
+                Text(trackName)
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+
+                Spacer()
+
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        showVolume.toggle()
+                    }
+                }) {
+                    Image(systemName: VolumeControl.volumeIcon(volume))
+                        .font(.system(size: 11))
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            .padding(.horizontal, 28)
+
+            Spacer().frame(height: 6)
+
+            if showVolume {
+                HStack(spacing: 8) {
+                    Image(systemName: "speaker.fill")
+                        .font(.system(size: 9))
+                        .foregroundColor(.white.opacity(0.6))
+
+                    Slider(value: $volume, in: 0...1)
+                        .tint(.white)
+                        .frame(height: 4)
+                        .onChange(of: volume) { _, newValue in
+                            VolumeControl.volume = newValue
+                        }
+
+                    Image(systemName: "speaker.wave.3.fill")
+                        .font(.system(size: 9))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .padding(.horizontal, 28)
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            }
+
+            Spacer().frame(height: showVolume ? 4 : 6)
 
             HStack(spacing: 32) {
                 Button(action: {
@@ -82,5 +136,10 @@ struct NotchBoxView: View {
             }
         )
         .clipShape(NotchShape())
+        .onAppear {
+            WeatherService().fetchWeather { data in
+                weather = data
+            }
+        }
     }
 }

@@ -56,6 +56,26 @@
     "swift-dependencies" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/TrackInfoFetcher.swiftdeps",
     "swiftmodule" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/TrackInfoFetcher~partial.swiftmodule"
   },
+  "/Users/daniel/Documents/BetterNotch/Sources/NotchBox/VolumeControl.swift" : {
+    "const-values" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.swiftconstvalues",
+    "dependencies" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.d",
+    "diagnostics" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.dia",
+    "index-unit-output-path" : "/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.o",
+    "llvm-bc" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.bc",
+    "object" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.o",
+    "swift-dependencies" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl.swiftdeps",
+    "swiftmodule" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/VolumeControl~partial.swiftmodule"
+  },
+  "/Users/daniel/Documents/BetterNotch/Sources/NotchBox/WeatherService.swift" : {
+    "const-values" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.swiftconstvalues",
+    "dependencies" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.d",
+    "diagnostics" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.dia",
+    "index-unit-output-path" : "/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.o",
+    "llvm-bc" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.bc",
+    "object" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.o",
+    "swift-dependencies" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService.swiftdeps",
+    "swiftmodule" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/WeatherService~partial.swiftmodule"
+  },
   "/Users/daniel/Documents/BetterNotch/Sources/NotchBox/main.swift" : {
     "const-values" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/main.swiftconstvalues",
     "dependencies" : "/Users/daniel/Documents/BetterNotch/.build/out/Intermediates.noindex/NotchBox.build/Debug/NotchBox-p.build/Objects-normal/arm64/main.d",

@@ -5,11 +5,11 @@
       "name" : "NotchBox",
       "path" : "/Users/daniel/Documents/BetterNotch",
       "projects" : [
-        "a17f2cc83b031688d07fa63f15283bf50856dd7390973611f1d702a5761383d7",
+        "142ffb01447246c294386fa4ba0dc8ec0f4ccca8c1d563a54b1a8159046e1c92",
         "2fe4a7fafe4f61e1ee2a28439d0c33e1acb1b8d5266d22fd5059da7ce44ad32b"
       ]
     },
-    "signature" : "210472f5a6108d999e0a0a1d990123dbe616d3cfafd7a15baa78a1aab2c0cb3b",
+    "signature" : "0c1d72d79b71f541fa62f64918baf68b9155e7f8e2b4bf2a845d03aa65bf6229",
     "type" : "workspace"
   },
   {
@@ -241,6 +241,22 @@
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_5",
+                "name" : "VolumeControl.swift",
+                "path" : "VolumeControl.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_6",
+                "name" : "WeatherService.swift",
+                "path" : "WeatherService.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_7",
                 "name" : "main.swift",
                 "path" : "main.swift",
                 "sourceTree" : "<group>",
@@ -298,6 +314,22 @@
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_5",
+                "name" : "VolumeControl.swift",
+                "path" : "VolumeControl.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_6",
+                "name" : "WeatherService.swift",
+                "path" : "WeatherService.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_7",
                 "name" : "main.swift",
                 "path" : "main.swift",
                 "sourceTree" : "<group>",
@@ -323,12 +355,12 @@
       "projectIsPackage" : "true",
       "projectName" : "NotchBox",
       "targets" : [
-        "9c50faf665e91890a94c0e84b71d56ea287dd9de0adcd62ba9643e2d91fda84a",
-        "27706ea17a3b450f9c458088af84a73e496a4c02e8c1bc4a3f8b3be9cd3111be",
+        "5cba5968688aa780481cd2645eb4dc0549ba47ea1043f014431ae18381c1876f",
+        "e7fbee95da5256c94838879711386b09d67fa1ee9f05a64a509dc5ebe72a9017",
         "4420a40101964df7427425af3dd76e80eb961af12967e7a6fea9a0c8ae0d1d30"
       ]
     },
-    "signature" : "a17f2cc83b031688d07fa63f15283bf50856dd7390973611f1d702a5761383d7",
+    "signature" : "142ffb01447246c294386fa4ba0dc8ec0f4ccca8c1d563a54b1a8159046e1c92",
     "type" : "project"
   },
   {
@@ -496,6 +528,24 @@
 
               ],
               "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_6",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::6",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_7",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::7",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
             }
           ],
           "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0",
@@ -521,7 +571,7 @@
       "productTypeIdentifier" : "com.apple.product-type.tool",
       "type" : "standard"
     },
-    "signature" : "9c50faf665e91890a94c0e84b71d56ea287dd9de0adcd62ba9643e2d91fda84a",
+    "signature" : "5cba5968688aa780481cd2645eb4dc0549ba47ea1043f014431ae18381c1876f",
     "type" : "target"
   },
   {
@@ -734,6 +784,24 @@
 
               ],
               "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_6",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::6",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_7",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::7",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
             }
           ],
           "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0",
@@ -759,7 +827,7 @@
       "productTypeIdentifier" : "org.swift.product-type.common.object",
       "type" : "standard"
     },
-    "signature" : "27706ea17a3b450f9c458088af84a73e496a4c02e8c1bc4a3f8b3be9cd3111be",
+    "signature" : "e7fbee95da5256c94838879711386b09d67fa1ee9f05a64a509dc5ebe72a9017",
     "type" : "target"
   },
   {

@@ -1,6 +1,0 @@
-Target dependency graph (3 targets)
-Target 'AllExcludingTests' in project 'Aggregate'
-➜ Explicit dependency on target 'NotchBox-product' in project 'NotchBox'
-➜ Explicit dependency on target 'NotchBox' in project 'NotchBox'
-Target 'NotchBox' in project 'NotchBox' (no dependencies)
-Target 'NotchBox-product' in project 'NotchBox' (no dependencies)
