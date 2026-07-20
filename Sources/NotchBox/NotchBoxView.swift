@@ -105,14 +105,26 @@ struct NotchBoxView: View {
 
             Spacer().frame(height: 10)
 
-            WaveformSeekBar(
-                progress: CGFloat(trackInfo.progress),
-                isPlaying: trackInfo.isPlaying,
-                activeColor: .white
-            ) { newProgress in
-                seekTo(progress: newProgress)
+            HStack(spacing: 8) {
+                Text(formatTime(trackInfo.progress * trackInfo.duration))
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.5))
+                    .frame(width: 32, alignment: .trailing)
+
+                WaveformSeekBar(
+                    progress: CGFloat(trackInfo.progress),
+                    isPlaying: trackInfo.isPlaying,
+                    activeColor: .white
+                ) { newProgress in
+                    seekTo(progress: newProgress)
+                }
+
+                Text(formatTime(trackInfo.duration))
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.5))
+                    .frame(width: 32, alignment: .leading)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 12)
 
             Spacer().frame(height: 10)
 
@@ -179,6 +191,12 @@ struct NotchBoxView: View {
                 }
             }
         }.resume()
+    }
+
+    private func formatTime(_ seconds: Double) -> String {
+        guard seconds.isFinite, seconds >= 0 else { return "0:00" }
+        let s = Int(seconds)
+        return String(format: "%d:%02d", s / 60, s % 60)
     }
 
     private func seekTo(progress: CGFloat) {
