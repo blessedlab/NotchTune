@@ -13,6 +13,9 @@ class NotchOverlayWindow: NSWindow {
     private var trackRefreshTimer: Timer?
     private var lastTrackInfo: TrackInfo = .empty
 
+    private var showWorkItem: DispatchWorkItem?
+    private var hideWorkItem: DispatchWorkItem?
+
     init() {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
@@ -111,10 +114,33 @@ class NotchOverlayWindow: NSWindow {
         let mouseLocation = NSEvent.mouseLocation
         let inNotch = isInNotchZone(mouseLocation)
 
-        if inNotch && !isShowing && !isAnimating {
-            showWindow()
-        } else if !inNotch && !isHoveringOverWindow() && isShowing && !isAnimating {
-            hideWindow()
+        if inNotch {
+            hideWorkItem?.cancel()
+            hideWorkItem = nil
+
+            guard !isShowing, !isAnimating else { return }
+            guard showWorkItem == nil else { return }
+
+            let work = DispatchWorkItem { [weak self] in
+                self?.showWorkItem = nil
+                self?.showWindow()
+            }
+            showWorkItem = work
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
+        } else {
+            showWorkItem?.cancel()
+            showWorkItem = nil
+
+            guard isShowing, !isAnimating else { return }
+            guard !isHoveringOverWindow() else { return }
+            guard hideWorkItem == nil else { return }
+
+            let work = DispatchWorkItem { [weak self] in
+                self?.hideWorkItem = nil
+                self?.hideWindow()
+            }
+            hideWorkItem = work
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
         }
     }
 
@@ -128,7 +154,17 @@ class NotchOverlayWindow: NSWindow {
         let isInsideWindow = frame.contains(mouseLocation)
 
         if !isInsideWindow && isShowing && !isAnimating && !isInNotchZone(mouseLocation) {
-            hideWindow()
+            hideWorkItem?.cancel()
+            hideWorkItem = nil
+
+            guard hideWorkItem == nil else { return }
+
+            let work = DispatchWorkItem { [weak self] in
+                self?.hideWorkItem = nil
+                self?.hideWindow()
+            }
+            hideWorkItem = work
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
         }
     }
 
@@ -152,21 +188,14 @@ class NotchOverlayWindow: NSWindow {
         self.orderFront(nil)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.45
-            context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
+            context.duration = 0.4
+            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(expandedRect, display: true)
         }, completionHandler: { [weak self] in
             self?.isShowing = true
             self?.isAnimating = false
         })
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
-            if self?.isAnimating == true {
-                self?.isShowing = true
-                self?.isAnimating = false
-            }
-        }
 
         refreshTrackInfoAsync()
     }
@@ -184,18 +213,14 @@ class NotchOverlayWindow: NSWindow {
         let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.3
-            context.timingFunction = CAMediaTimingFunction(controlPoints: 0.55, 0.0, 0.85, 0.36)
+            context.duration = 0.4
+            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(collapsedRect, display: true)
         }, completionHandler: { [weak self] in
             self?.orderOut(nil)
             self?.isAnimating = false
         })
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.isAnimating = false
-        }
     }
 
     deinit {

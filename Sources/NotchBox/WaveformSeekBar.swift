@@ -104,8 +104,8 @@ struct WaveformSeekBar: View {
         let middleY = size.height * 0.55
         let baseAmplitude = size.height * 0.4
 
-        let speed: CGFloat = isPlaying ? 3.0 : 0.5
-        let scrollOffset = progress * 25
+        let speed: CGFloat = isPlaying ? 10.0 : 0.05
+        let scrollOffset = progress * 30
 
         for index in 0..<sampleCount {
             let t = CGFloat(phase) * speed + CGFloat(index) * 0.18 + scrollOffset
