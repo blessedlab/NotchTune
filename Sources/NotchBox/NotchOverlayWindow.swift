@@ -13,11 +13,10 @@ class NotchOverlayWindow: NSWindow {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
         let windowWidth: CGFloat = 280
-        let windowHeight: CGFloat = 90
-        let notchAreaHeight: CGFloat = 37
+        let windowHeight: CGFloat = 120
 
         let x = (screenFrame.width - windowWidth) / 2
-        let y = screenFrame.height - windowHeight - notchAreaHeight
+        let y = screenFrame.height - windowHeight
 
         let windowRect = NSRect(x: x, y: y, width: windowWidth, height: windowHeight)
 
@@ -112,22 +111,22 @@ class NotchOverlayWindow: NSWindow {
 
         NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
 
-        notchView?.offsetY = -120
-        notchView?.appeared = false
+        notchView?.scale = 0.0
+        notchView?.opacity = 0.0
 
         self.alphaValue = 1.0
         self.orderOut(nil)
-        self.setFrameOrigin(self.frame.origin)
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.orderFront(nil)
 
             NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.5
+                context.duration = 0.45
                 context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
                 context.allowsImplicitAnimation = true
-                self.notchView?.appeared = true
+                self.notchView?.scale = 1.0
+                self.notchView?.opacity = 1.0
             }, completionHandler: nil)
         }
 
@@ -136,10 +135,11 @@ class NotchOverlayWindow: NSWindow {
 
     private func hideWindow() {
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.25
+            context.duration = 0.2
             context.timingFunction = CAMediaTimingFunction(name: .easeIn)
             context.allowsImplicitAnimation = true
-            self.notchView?.appeared = false
+            self.notchView?.scale = 0.0
+            self.notchView?.opacity = 0.0
         }, completionHandler: { [weak self] in
             self?.orderOut(nil)
             self?.isShowing = false

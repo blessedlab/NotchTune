@@ -3,7 +3,7 @@ import SwiftUI
 struct NotchShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let radius: CGFloat = 18
+        let radius: CGFloat = 20
 
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
@@ -27,11 +27,13 @@ struct NotchShape: Shape {
 
 struct NotchBoxView: View {
     @State var trackName: String
-    @State var appeared = false
-    @State var offsetY: CGFloat = -120
+    @State var scale: CGFloat = 0.0
+    @State var opacity: Double = 0.0
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 0) {
+            Spacer().frame(height: 45)
+
             Text(trackName)
                 .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundColor(.white)
@@ -39,13 +41,15 @@ struct NotchBoxView: View {
                 .truncationMode(.tail)
                 .frame(maxWidth: .infinity)
 
+            Spacer().frame(height: 8)
+
             HStack(spacing: 32) {
                 Button(action: {
                     MediaKeySimulator.simulate(.previous)
                 }) {
                     Image(systemName: "backward.fill")
                         .font(.system(size: 16))
-                        .foregroundColor(.white.opacity(0.9))
+                        .foregroundColor(.white)
                 }
                 .buttonStyle(PlainButtonStyle())
 
@@ -63,21 +67,21 @@ struct NotchBoxView: View {
                 }) {
                     Image(systemName: "forward.fill")
                         .font(.system(size: 16))
-                        .foregroundColor(.white.opacity(0.9))
+                        .foregroundColor(.white)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+
+            Spacer().frame(height: 12)
         }
-        .padding(.horizontal, 28)
-        .padding(.top, 10)
-        .padding(.bottom, 14)
-        .frame(width: 280, height: 80)
+        .frame(width: 280, height: 120)
         .background(
             NotchShape()
-                .fill(Color.black.opacity(0.8))
+                .fill(Color.black)
         )
-        .shadow(color: .black.opacity(0.7), radius: 25, x: 0, y: 10)
-        .offset(y: appeared ? 0 : -120)
-        .animation(.spring(response: 0.55, dampingFraction: 0.5), value: appeared)
+        .scaleEffect(scale, anchor: .top)
+        .opacity(opacity)
+        .animation(.spring(response: 0.5, dampingFraction: 0.45), value: scale)
+        .animation(.easeOut(duration: 0.15), value: opacity)
     }
 }
