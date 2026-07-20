@@ -27,6 +27,8 @@ struct NotchShape: Shape {
 
 struct NotchBoxView: View {
     @State var trackName: String
+    @State var appeared = false
+    @State var offsetY: CGFloat = -120
 
     var body: some View {
         VStack(spacing: 10) {
@@ -67,13 +69,15 @@ struct NotchBoxView: View {
             }
         }
         .padding(.horizontal, 28)
-        .padding(.top, 8)
+        .padding(.top, 10)
         .padding(.bottom, 14)
         .frame(width: 280, height: 80)
         .background(
             NotchShape()
-                .fill(Color(red: 0.11, green: 0.11, blue: 0.118))
+                .fill(Color.black.opacity(0.8))
         )
-        .shadow(color: .black.opacity(0.6), radius: 20, x: 0, y: 8)
+        .shadow(color: .black.opacity(0.7), radius: 25, x: 0, y: 10)
+        .offset(y: appeared ? 0 : -120)
+        .animation(.spring(response: 0.55, dampingFraction: 0.5), value: appeared)
     }
 }

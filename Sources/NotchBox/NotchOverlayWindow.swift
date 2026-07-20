@@ -13,10 +13,11 @@ class NotchOverlayWindow: NSWindow {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
         let windowWidth: CGFloat = 280
-        let windowHeight: CGFloat = 85
+        let windowHeight: CGFloat = 90
+        let notchAreaHeight: CGFloat = 37
 
         let x = (screenFrame.width - windowWidth) / 2
-        let y = screenFrame.height - windowHeight
+        let y = screenFrame.height - windowHeight - notchAreaHeight
 
         let windowRect = NSRect(x: x, y: y, width: windowWidth, height: windowHeight)
 
@@ -62,11 +63,16 @@ class NotchOverlayWindow: NSWindow {
 
     private func handleGlobalMouseEvent(_ event: NSEvent) {
         let mouseLocation = NSEvent.mouseLocation
-        let screen = NSScreen.main!
+
+        guard let screen = NSScreen.main, screen.frame.contains(mouseLocation) else {
+            if isShowing { hideWindow() }
+            return
+        }
+
         let screenFrame = screen.frame
         let notchCenterX = screenFrame.width / 2
         let notchWidth: CGFloat = 220
-        let notchHeight: CGFloat = 30
+        let notchHeight: CGFloat = 37
 
         let mouseX = mouseLocation.x
         let mouseY = mouseLocation.y
@@ -106,15 +112,24 @@ class NotchOverlayWindow: NSWindow {
 
         NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
 
-        self.alphaValue = 0
-        self.orderFront(nil)
+        notchView?.offsetY = -120
+        notchView?.appeared = false
 
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
-            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
-            context.allowsImplicitAnimation = true
-            self.animator().alphaValue = 1.0
-        }, completionHandler: nil)
+        self.alphaValue = 1.0
+        self.orderOut(nil)
+        self.setFrameOrigin(self.frame.origin)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.orderFront(nil)
+
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.5
+                context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
+                context.allowsImplicitAnimation = true
+                self.notchView?.appeared = true
+            }, completionHandler: nil)
+        }
 
         isShowing = true
     }
@@ -124,7 +139,7 @@ class NotchOverlayWindow: NSWindow {
             context.duration = 0.25
             context.timingFunction = CAMediaTimingFunction(name: .easeIn)
             context.allowsImplicitAnimation = true
-            self.animator().alphaValue = 0.0
+            self.notchView?.appeared = false
         }, completionHandler: { [weak self] in
             self?.orderOut(nil)
             self?.isShowing = false
