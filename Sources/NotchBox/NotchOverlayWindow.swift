@@ -8,16 +8,17 @@ class NotchOverlayWindow: NSWindow {
     private var isHoveringOverWindow = false
     private var notchView: NotchBoxView?
     private var isShowing = false
-    private let windowWidth: CGFloat = 280
-    private let windowHeight: CGFloat = 120
+    private let finalWidth: CGFloat = 280
+    private let finalHeight: CGFloat = 120
+    private let notchWidth: CGFloat = 220
 
     init() {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
-        let x = (screenFrame.width - windowWidth) / 2
-        let y = screenFrame.height - windowHeight
+        let x = (screenFrame.width - notchWidth) / 2
+        let y = screenFrame.height
 
-        let windowRect = NSRect(x: x, y: y, width: windowWidth, height: windowHeight)
+        let windowRect = NSRect(x: x, y: y, width: notchWidth, height: 0)
 
         super.init(contentRect: windowRect, styleMask: .borderless, backing: .buffered, defer: false)
 
@@ -33,13 +34,6 @@ class NotchOverlayWindow: NSWindow {
         self.contentView = NSHostingView(rootView: contentView)
         self.notchView = contentView
 
-        let collapsedRect = NSRect(
-            x: (screen.frame.width - windowWidth) / 2,
-            y: screen.frame.height,
-            width: windowWidth,
-            height: 0
-        )
-        self.setFrame(collapsedRect, display: false)
         self.orderOut(nil)
     }
 
@@ -65,30 +59,27 @@ class NotchOverlayWindow: NSWindow {
         }
     }
 
+    private func isInNotchZone(_ location: NSPoint) -> Bool {
+        guard let screen = NSScreen.main else { return false }
+        let screenFrame = screen.frame
+        let notchCenterX = screenFrame.width / 2
+        let triggerWidth: CGFloat = 220
+        let triggerHeight: CGFloat = 37
+
+        return location.x >= (notchCenterX - triggerWidth / 2) &&
+               location.x <= (notchCenterX + triggerWidth / 2) &&
+               location.y >= (screenFrame.height - triggerHeight)
+    }
+
     private func handleGlobalMouseEvent(_ event: NSEvent) {
         let mouseLocation = NSEvent.mouseLocation
 
-        guard let screen = NSScreen.main, screen.frame.contains(mouseLocation) else {
-            if isShowing { hideWindow() }
-            return
-        }
+        let inNotch = isInNotchZone(mouseLocation)
 
-        let screenFrame = screen.frame
-        let notchCenterX = screenFrame.width / 2
-        let notchWidth: CGFloat = 220
-        let notchHeight: CGFloat = 37
-
-        let mouseX = mouseLocation.x
-        let mouseY = mouseLocation.y
-
-        let isInNotchZone = mouseX >= (notchCenterX - notchWidth / 2) &&
-                             mouseX <= (notchCenterX + notchWidth / 2) &&
-                             mouseY >= (screenFrame.height - notchHeight)
-
-        if isInNotchZone && !isHoveringOverNotch && !isShowing {
+        if inNotch && !isHoveringOverNotch && !isShowing {
             isHoveringOverNotch = true
             showWindow()
-        } else if !isInNotchZone && !isHoveringOverWindow && isShowing {
+        } else if !inNotch && !isHoveringOverWindow && isShowing {
             isHoveringOverNotch = false
             hideWindow()
         }
@@ -117,24 +108,20 @@ class NotchOverlayWindow: NSWindow {
         NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
 
         let screen = NSScreen.main!
-        let collapsedRect = NSRect(
-            x: (screen.frame.width - windowWidth) / 2,
-            y: screen.frame.height,
-            width: windowWidth,
-            height: 0
-        )
-        let expandedRect = NSRect(
-            x: (screen.frame.width - windowWidth) / 2,
-            y: screen.frame.height - windowHeight,
-            width: windowWidth,
-            height: windowHeight
-        )
+        let screenFrame = screen.frame
+        let startX = (screenFrame.width - notchWidth) / 2
+        let startY = screenFrame.height
+        let finalX = (screenFrame.width - finalWidth) / 2
+        let finalY = screenFrame.height - finalHeight
+
+        let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
+        let expandedRect = NSRect(x: finalX, y: finalY, width: finalWidth, height: finalHeight)
 
         self.setFrame(collapsedRect, display: false)
         self.orderFront(nil)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
+            context.duration = 0.45
             context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(expandedRect, display: true)
@@ -145,16 +132,20 @@ class NotchOverlayWindow: NSWindow {
 
     private func hideWindow() {
         let screen = NSScreen.main!
-        let collapsedRect = NSRect(
-            x: (screen.frame.width - windowWidth) / 2,
-            y: screen.frame.height,
-            width: windowWidth,
-            height: 0
-        )
+        let screenFrame = screen.frame
+        let startX = (screenFrame.width - notchWidth) / 2
+        let startY = screenFrame.height
+        let finalX = (screenFrame.width - finalWidth) / 2
+        let finalY = screenFrame.height - finalHeight
+
+        let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
+        let expandedRect = NSRect(x: finalX, y: finalY, width: finalWidth, height: finalHeight)
+
+        self.setFrame(expandedRect, display: false)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.2
-            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+            context.duration = 0.3
+            context.timingFunction = CAMediaTimingFunction(controlPoints: 0.6, 0.0, 0.85, 0.3)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(collapsedRect, display: true)
         }, completionHandler: { [weak self] in

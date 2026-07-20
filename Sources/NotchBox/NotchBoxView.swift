@@ -74,8 +74,12 @@ struct NotchBoxView: View {
         }
         .frame(width: 280, height: 120)
         .background(
-            NotchShape()
-                .fill(Color.black)
+            ZStack {
+                NotchShape()
+                    .fill(Color.black)
+                NotchShape()
+                    .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
+            }
         )
     }
 }
