@@ -78,7 +78,7 @@ struct NotchBoxView: View {
                 NotchShape()
                     .fill(Color.black)
                 NotchShape()
-                    .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
+                    .stroke(Color.white.opacity(0.2), lineWidth: 1.5)
             }
         )
     }

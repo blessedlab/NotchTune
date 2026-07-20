@@ -4,10 +4,9 @@ import SwiftUI
 class NotchOverlayWindow: NSWindow {
     private var globalMonitor: Any?
     private var localMonitor: Any?
-    private var isHoveringOverNotch = false
-    private var isHoveringOverWindow = false
     private var notchView: NotchBoxView?
     private var isShowing = false
+    private var isAnimating = false
     private let finalWidth: CGFloat = 280
     private let finalHeight: CGFloat = 120
     private let notchWidth: CGFloat = 220
@@ -73,35 +72,33 @@ class NotchOverlayWindow: NSWindow {
 
     private func handleGlobalMouseEvent(_ event: NSEvent) {
         let mouseLocation = NSEvent.mouseLocation
-
         let inNotch = isInNotchZone(mouseLocation)
 
-        if inNotch && !isHoveringOverNotch && !isShowing {
-            isHoveringOverNotch = true
+        if inNotch && !isShowing && !isAnimating {
             showWindow()
-        } else if !inNotch && !isHoveringOverWindow && isShowing {
-            isHoveringOverNotch = false
+        } else if !inNotch && !isHoveringOverWindow() && isShowing && !isAnimating {
             hideWindow()
         }
     }
 
+    private func isHoveringOverWindow() -> Bool {
+        let mouseLocation = NSEvent.mouseLocation
+        return frame.contains(mouseLocation)
+    }
+
     private func handleLocalMouseEvent(_ event: NSEvent) {
         let mouseLocation = NSEvent.mouseLocation
-        let windowFrame = self.frame
+        let isInsideWindow = frame.contains(mouseLocation)
 
-        let isInsideWindow = windowFrame.contains(mouseLocation)
-
-        if isInsideWindow && !isHoveringOverWindow {
-            isHoveringOverWindow = true
-        } else if !isInsideWindow && isHoveringOverWindow {
-            isHoveringOverWindow = false
-            if !isHoveringOverNotch {
-                hideWindow()
-            }
+        if !isInsideWindow && isShowing && !isAnimating && !isInNotchZone(mouseLocation) {
+            hideWindow()
         }
     }
 
     private func showWindow() {
+        guard !isShowing else { return }
+        isAnimating = true
+
         let trackName = TrackInfoFetcher.fetchTrackName()
         notchView?.trackName = trackName
 
@@ -125,12 +122,17 @@ class NotchOverlayWindow: NSWindow {
             context.timingFunction = CAMediaTimingFunction(controlPoints: 0.175, 0.885, 0.32, 1.275)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(expandedRect, display: true)
-        }, completionHandler: nil)
-
-        isShowing = true
+        }, completionHandler: { [weak self] in
+            self?.isShowing = true
+            self?.isAnimating = false
+        })
     }
 
     private func hideWindow() {
+        guard isShowing else { return }
+        isAnimating = true
+        isShowing = false
+
         let screen = NSScreen.main!
         let screenFrame = screen.frame
         let startX = (screenFrame.width - notchWidth) / 2
@@ -144,13 +146,13 @@ class NotchOverlayWindow: NSWindow {
         self.setFrame(expandedRect, display: false)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.3
-            context.timingFunction = CAMediaTimingFunction(controlPoints: 0.6, 0.0, 0.85, 0.3)
+            context.duration = 0.4
+            context.timingFunction = CAMediaTimingFunction(controlPoints: 0.55, 0.0, 0.85, 0.36)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(collapsedRect, display: true)
         }, completionHandler: { [weak self] in
             self?.orderOut(nil)
-            self?.isShowing = false
+            self?.isAnimating = false
         })
     }
 
