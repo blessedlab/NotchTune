@@ -28,66 +28,91 @@ struct NotchShape: Shape {
 
 struct NotchBorderShape: Shape {
     func path(in rect: CGRect) -> Path {
-        var path = Path()
         let maxRadius: CGFloat = 20
         let radius = min(maxRadius, rect.height / 2, rect.width / 2)
+        var path = Path()
 
-        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX + radius, y: rect.maxY))
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - radius))
         path.addArc(center: CGPoint(x: rect.minX + radius, y: rect.maxY - radius),
                     radius: radius,
-                    startAngle: .degrees(90),
-                    endAngle: .degrees(180),
-                    clockwise: false)
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - radius))
+                    startAngle: .degrees(180),
+                    endAngle: .degrees(90),
+                    clockwise: true)
+        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.maxY))
         path.addArc(center: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius),
                     radius: radius,
-                    startAngle: .degrees(0),
-                    endAngle: .degrees(90),
-                    clockwise: false)
+                    startAngle: .degrees(90),
+                    endAngle: .degrees(0),
+                    clockwise: true)
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
 
         return path
     }
 }
 
 struct NotchBoxView: View {
-    @State var trackName: String
-    @State private var volume: Float = 0.5
+    @ObservedObject var viewModel: TrackInfoViewModel
+    @State private var coverImage: NSImage?
+
+    private var trackInfo: TrackInfo { viewModel.trackInfo }
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer().frame(height: 48)
+            Spacer().frame(height: 40)
 
-            Text(trackName)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundColor(.white)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 28)
+            ZStack(alignment: .center) {
+                if let coverImage = coverImage {
+                    Image(nsImage: coverImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 48, height: 48)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                } else {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white.opacity(0.1))
+                        .frame(width: 48, height: 48)
+                        .overlay(
+                            Image(systemName: "music.note")
+                                .font(.system(size: 16))
+                                .foregroundColor(.white.opacity(0.3))
+                        )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                }
+
+                VStack(alignment: .center, spacing: 3) {
+                    Text(trackInfo.title.isEmpty ? "No track playing" : trackInfo.title)
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(maxWidth: 200)
+
+                    if !trackInfo.artist.isEmpty {
+                        Text(trackInfo.artist)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                            .frame(maxWidth: 200)
+                    }
+                }
+            }
+            .frame(height: 48)
 
             Spacer().frame(height: 10)
 
-            HStack(spacing: 8) {
-                Image(systemName: "speaker.fill")
-                    .font(.system(size: 10))
-                    .foregroundColor(.white.opacity(0.5))
-
-                Slider(value: $volume, in: 0...1, onEditingChanged: { editing in
-                    if !editing {
-                        VolumeControl.volume = volume
-                    }
-                })
-                .tint(.white)
-                .frame(height: 4)
-
-                Image(systemName: "speaker.wave.3.fill")
-                    .font(.system(size: 10))
-                    .foregroundColor(.white.opacity(0.5))
+            WaveformSeekBar(
+                progress: CGFloat(trackInfo.progress),
+                isPlaying: trackInfo.isPlaying,
+                activeColor: .white
+            ) { newProgress in
+                seekTo(progress: newProgress)
             }
-            .padding(.horizontal, 28)
+            .padding(.horizontal, 16)
 
             Spacer().frame(height: 10)
 
@@ -96,7 +121,7 @@ struct NotchBoxView: View {
                     MediaKeySimulator.simulate(.previous)
                 }) {
                     Image(systemName: "backward.fill")
-                        .font(.system(size: 16))
+                        .font(.system(size: 20))
                         .foregroundColor(.white)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -104,8 +129,8 @@ struct NotchBoxView: View {
                 Button(action: {
                     MediaKeySimulator.simulate(.play)
                 }) {
-                    Image(systemName: "play.fill")
-                        .font(.system(size: 20))
+                    Image(systemName: trackInfo.isPlaying ? "pause.fill" : "play.fill")
+                        .font(.system(size: 28))
                         .foregroundColor(.white)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -114,26 +139,62 @@ struct NotchBoxView: View {
                     MediaKeySimulator.simulate(.next)
                 }) {
                     Image(systemName: "forward.fill")
-                        .font(.system(size: 16))
+                        .font(.system(size: 20))
                         .foregroundColor(.white)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
 
-            Spacer().frame(height: 12)
+            Spacer().frame(height: 16)
         }
-        .frame(width: 280, height: 140)
+        .frame(width: 300, height: 180)
         .background(
             NotchShape()
                 .fill(Color.black)
         )
         .overlay(
             NotchBorderShape()
-                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                .stroke(Color.white.opacity(0.2), lineWidth: 1)
         )
         .clipShape(NotchShape())
         .onAppear {
-            volume = VolumeControl.volume
+            loadCoverArt()
         }
+        .onChange(of: trackInfo.coverArtURL) { _, _ in
+            loadCoverArt()
+        }
+    }
+
+    private func loadCoverArt() {
+        guard let urlString = trackInfo.coverArtURL,
+              let url = URL(string: urlString) else {
+            coverImage = nil
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            if let data = data, let image = NSImage(data: data) {
+                DispatchQueue.main.async {
+                    self.coverImage = image
+                }
+            }
+        }.resume()
+    }
+
+    private func seekTo(progress: CGFloat) {
+        let durationMs = trackInfo.duration * 1000
+        let positionMs = Int(progress * durationMs)
+        let js = """
+        (function() {
+            var el = document.querySelector('[data-testid="playback-progressbar"] input[type=range]');
+            if (!el) return 'no_element';
+            var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+            nativeInputValueSetter.call(el, \(positionMs));
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+            return 'ok';
+        })()
+        """
+        _ = TrackInfoFetcher.runJSOnSpotifyTab(js)
     }
 }

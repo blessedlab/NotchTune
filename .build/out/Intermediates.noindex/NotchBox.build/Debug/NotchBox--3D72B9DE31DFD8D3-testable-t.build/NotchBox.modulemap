@@ -1,4 +1,0 @@
-module NotchBox {
-header "NotchBox-Swift.h"
-export *
-}

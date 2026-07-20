@@ -3,6 +3,7 @@ import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var overlayWindow: NotchOverlayWindow?
+    private var accessibilityCheckTimer: Timer?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -17,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         overlayWindow?.stopTracking()
+        accessibilityCheckTimer?.invalidate()
     }
 
     private func requestAccessibility() {
@@ -24,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let trusted = AXIsProcessTrustedWithOptions(options)
         if !trusted {
             print("Accessibility not granted. Please enable in System Settings → Privacy & Security → Accessibility")
+            print("Add this binary: \(CommandLine.arguments.first ?? "NotchBox")")
         }
     }
 }

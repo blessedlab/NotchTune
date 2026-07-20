@@ -2,3 +2,5 @@
 *.xcodeproj/
 DerivedData/
 docs/
+NotchBox.app/
+.DS_Store
