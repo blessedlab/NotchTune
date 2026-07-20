@@ -5,11 +5,11 @@
       "name" : "NotchBox",
       "path" : "/Users/daniel/Documents/BetterNotch",
       "projects" : [
-        "5601c5996a97d4b91dad05a93499bf35d3c3bc564225fdeba91823ef8bc1126b",
-        "fff6a6176e2faeff68b5a1b357f7899d4b2317754f188e2e308458ab372ebdce"
+        "2897c5c8b7f0518023c662592d5799b4f8ad94763ee5a7a4fb0573941712d85e",
+        "2fe4a7fafe4f61e1ee2a28439d0c33e1acb1b8d5266d22fd5059da7ce44ad32b"
       ]
     },
-    "signature" : "4fc316f4e327699ca1bd9e092578e3f0eff367b194035a1f7636ddb543386eb3",
+    "signature" : "5f25f8483dfd8dacceaf0dc627ed9a282cfd3808736a17ab39e0864bb46eb321",
     "type" : "workspace"
   },
   {
@@ -29,6 +29,7 @@
             "COMPILER_WORKING_DIRECTORY" : "$(WORKSPACE_DIR)",
             "COPY_PHASE_STRIP" : "NO",
             "DEBUG_INFORMATION_FORMAT" : "dwarf",
+            "DRIVERKIT_DEPLOYMENT_TARGET" : "21.0",
             "DYLIB_INSTALL_NAME_BASE[__platform_filter=driverkit]" : "@rpath",
             "DYLIB_INSTALL_NAME_BASE[__platform_filter=ios-maccatalyst]" : "@rpath",
             "DYLIB_INSTALL_NAME_BASE[__platform_filter=ios;ios-simulator]" : "@rpath",
@@ -47,9 +48,12 @@
               "DEBUG=1"
             ],
             "INDEX_ENABLE_DATA_STORE" : "YES",
+            "IPHONEOS_DEPLOYMENT_TARGET" : "15.0",
+            "IPHONEOS_DEPLOYMENT_TARGET[__platform_filter=ios-maccatalyst]" : "15.0",
             "KEEP_PRIVATE_EXTERNS" : "NO",
             "LIBTOOL_NO_WARNING_FOR_NO_SYMBOLS" : "YES",
             "LINKER_DRIVER" : "auto",
+            "MACOSX_DEPLOYMENT_TARGET" : "14.0",
             "ONLY_ACTIVE_ARCH" : "YES",
             "OTHER_CFLAGS" : [
               "$(inherited)",
@@ -79,7 +83,10 @@
             "SWIFT_OBJC_INTERFACE_HEADER_NAME" : "",
             "SWIFT_OPTIMIZATION_LEVEL" : "-Onone",
             "TARGETED_DEVICE_FAMILY" : "",
-            "USE_HEADERMAP" : "NO"
+            "TVOS_DEPLOYMENT_TARGET" : "15.0",
+            "USE_HEADERMAP" : "NO",
+            "WATCHOS_DEPLOYMENT_TARGET" : "9.0",
+            "XROS_DEPLOYMENT_TARGET" : "1.0"
           },
           "guid" : "PACKAGE:betternotch::BUILDCONFIG_0",
           "impartedBuildProperties" : {
@@ -104,6 +111,7 @@
             "COPY_PHASE_STRIP" : "YES",
             "DEBUG_INFORMATION_FORMAT" : "dwarf-with-dsym",
             "DEPLOYMENT_POSTPROCESSING" : "YES",
+            "DRIVERKIT_DEPLOYMENT_TARGET" : "21.0",
             "DYLIB_INSTALL_NAME_BASE[__platform_filter=driverkit]" : "@rpath",
             "DYLIB_INSTALL_NAME_BASE[__platform_filter=ios-maccatalyst]" : "@rpath",
             "DYLIB_INSTALL_NAME_BASE[__platform_filter=ios;ios-simulator]" : "@rpath",
@@ -118,9 +126,12 @@
               "$(inherited)",
               "SWIFT_PACKAGE"
             ],
+            "IPHONEOS_DEPLOYMENT_TARGET" : "15.0",
+            "IPHONEOS_DEPLOYMENT_TARGET[__platform_filter=ios-maccatalyst]" : "15.0",
             "KEEP_PRIVATE_EXTERNS" : "NO",
             "LIBTOOL_NO_WARNING_FOR_NO_SYMBOLS" : "YES",
             "LINKER_DRIVER" : "auto",
+            "MACOSX_DEPLOYMENT_TARGET" : "14.0",
             "OTHER_CFLAGS" : [
               "$(inherited)",
               "-DXcode"
@@ -148,7 +159,10 @@
             "SWIFT_OBJC_INTERFACE_HEADER_NAME" : "",
             "SWIFT_OPTIMIZATION_LEVEL" : "-Owholemodule",
             "TARGETED_DEVICE_FAMILY" : "",
-            "USE_HEADERMAP" : "NO"
+            "TVOS_DEPLOYMENT_TARGET" : "15.0",
+            "USE_HEADERMAP" : "NO",
+            "WATCHOS_DEPLOYMENT_TARGET" : "9.0",
+            "XROS_DEPLOYMENT_TARGET" : "1.0"
           },
           "guid" : "PACKAGE:betternotch::BUILDCONFIG_1",
           "impartedBuildProperties" : {
@@ -181,6 +195,104 @@
             "path" : "/",
             "sourceTree" : "<absolute>",
             "type" : "group"
+          },
+          {
+            "children" : [
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_0",
+                "name" : "MediaKeySimulator.swift",
+                "path" : "MediaKeySimulator.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_1",
+                "name" : "NotchBoxApp.swift",
+                "path" : "NotchBoxApp.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_2",
+                "name" : "NotchBoxView.swift",
+                "path" : "NotchBoxView.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_3",
+                "name" : "NotchOverlayWindow.swift",
+                "path" : "NotchOverlayWindow.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_4",
+                "name" : "TrackInfoFetcher.swift",
+                "path" : "TrackInfoFetcher.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              }
+            ],
+            "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2",
+            "name" : "/Users/daniel/Documents/BetterNotch/Sources/NotchBox",
+            "path" : "/Users/daniel/Documents/BetterNotch/Sources/NotchBox",
+            "sourceTree" : "<absolute>",
+            "type" : "group"
+          },
+          {
+            "children" : [
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_0",
+                "name" : "MediaKeySimulator.swift",
+                "path" : "MediaKeySimulator.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_1",
+                "name" : "NotchBoxApp.swift",
+                "path" : "NotchBoxApp.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_2",
+                "name" : "NotchBoxView.swift",
+                "path" : "NotchBoxView.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_3",
+                "name" : "NotchOverlayWindow.swift",
+                "path" : "NotchOverlayWindow.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_4",
+                "name" : "TrackInfoFetcher.swift",
+                "path" : "TrackInfoFetcher.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              }
+            ],
+            "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3",
+            "name" : "/Users/daniel/Documents/BetterNotch/Sources/NotchBox",
+            "path" : "/Users/daniel/Documents/BetterNotch/Sources/NotchBox",
+            "sourceTree" : "<absolute>",
+            "type" : "group"
           }
         ],
         "guid" : "PACKAGE:betternotch::MAINGROUP",
@@ -195,11 +307,426 @@
       "projectIsPackage" : "true",
       "projectName" : "NotchBox",
       "targets" : [
+        "71f06d5d50835ac8aa3e6eabeb48f23aed93ecf6942a048c5d66fc278cd63d0b",
+        "b11c4c7c1c8066d0a0388d616748180b8bde5cf61763ca881920a737afd5e4a9",
         "4420a40101964df7427425af3dd76e80eb961af12967e7a6fea9a0c8ae0d1d30"
       ]
     },
-    "signature" : "5601c5996a97d4b91dad05a93499bf35d3c3bc564225fdeba91823ef8bc1126b",
+    "signature" : "2897c5c8b7f0518023c662592d5799b4f8ad94763ee5a7a4fb0573941712d85e",
     "type" : "project"
+  },
+  {
+    "contents" : {
+      "approvedByUser" : "true",
+      "buildConfigurations" : [
+        {
+          "buildSettings" : {
+            "DRIVERKIT_DEPLOYMENT_TARGET" : "21.0",
+            "GENERATE_EMBED_IN_CODE_ACCESSORS" : "NO",
+            "GENERATE_RESOURCE_ACCESSORS" : "YES",
+            "IPHONEOS_DEPLOYMENT_TARGET" : "15.0",
+            "IPHONEOS_DEPLOYMENT_TARGET[__platform_filter=ios-maccatalyst]" : "15.0",
+            "MACOSX_DEPLOYMENT_TARGET" : "14.0",
+            "OTHER_LDFLAGS" : [
+              "$(inherited)",
+              "-framework",
+              "Cocoa",
+              "-framework",
+              "CoreGraphics"
+            ],
+            "OTHER_SWIFT_FLAGS" : [
+              "$(inherited)",
+              "$(OTHER_SWIFT_FLAGS_ENABLE_LIBFUZZER_$(ENABLE_LIBFUZZER))"
+            ],
+            "OTHER_SWIFT_FLAGS_ENABLE_LIBFUZZER_YES" : [
+              "-Xfrontend",
+              "-entry-point-function-name",
+              "-Xfrontend",
+              "NotchBox_main"
+            ],
+            "PACKAGE_RESOURCE_TARGET_KIND" : "regular",
+            "PRODUCT_BUNDLE_IDENTIFIER" : "betternotch.NotchBox",
+            "PRODUCT_MODULE_NAME" : "NotchBox",
+            "PRODUCT_NAME" : "$(TARGET_NAME)",
+            "SDKROOT" : "auto",
+            "SDK_VARIANT" : "auto",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
+            "SWIFT_INSTALL_MODULE" : "NO",
+            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_PACKAGE_NAME" : "betternotch",
+            "SWIFT_VERSION" : "5",
+            "SYMBOL_GRAPH_EXTRACTOR_OUTPUT_DIR" : "$(TARGET_BUILD_DIR)/$(CURRENT_ARCH)/NotchBox.symbolgraphs",
+            "TARGET_NAME" : "NotchBox",
+            "TARGET_TEMP_DIR_SUFFIX" : "-p",
+            "TVOS_DEPLOYMENT_TARGET" : "15.0",
+            "WATCHOS_DEPLOYMENT_TARGET" : "9.0",
+            "XROS_DEPLOYMENT_TARGET" : "1.0"
+          },
+          "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDCONFIG_0",
+          "impartedBuildProperties" : {
+            "buildSettings" : {
+
+            }
+          },
+          "name" : "Debug"
+        },
+        {
+          "buildSettings" : {
+            "DRIVERKIT_DEPLOYMENT_TARGET" : "21.0",
+            "GENERATE_EMBED_IN_CODE_ACCESSORS" : "NO",
+            "GENERATE_RESOURCE_ACCESSORS" : "YES",
+            "IPHONEOS_DEPLOYMENT_TARGET" : "15.0",
+            "IPHONEOS_DEPLOYMENT_TARGET[__platform_filter=ios-maccatalyst]" : "15.0",
+            "MACOSX_DEPLOYMENT_TARGET" : "14.0",
+            "OTHER_LDFLAGS" : [
+              "$(inherited)",
+              "-framework",
+              "Cocoa",
+              "-framework",
+              "CoreGraphics"
+            ],
+            "OTHER_SWIFT_FLAGS" : [
+              "$(inherited)",
+              "$(OTHER_SWIFT_FLAGS_ENABLE_LIBFUZZER_$(ENABLE_LIBFUZZER))"
+            ],
+            "OTHER_SWIFT_FLAGS_ENABLE_LIBFUZZER_YES" : [
+              "-Xfrontend",
+              "-entry-point-function-name",
+              "-Xfrontend",
+              "NotchBox_main"
+            ],
+            "PACKAGE_RESOURCE_TARGET_KIND" : "regular",
+            "PRODUCT_BUNDLE_IDENTIFIER" : "betternotch.NotchBox",
+            "PRODUCT_MODULE_NAME" : "NotchBox",
+            "PRODUCT_NAME" : "$(TARGET_NAME)",
+            "SDKROOT" : "auto",
+            "SDK_VARIANT" : "auto",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
+            "SWIFT_INSTALL_MODULE" : "NO",
+            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_PACKAGE_NAME" : "betternotch",
+            "SWIFT_VERSION" : "5",
+            "SYMBOL_GRAPH_EXTRACTOR_OUTPUT_DIR" : "$(TARGET_BUILD_DIR)/$(CURRENT_ARCH)/NotchBox.symbolgraphs",
+            "TARGET_NAME" : "NotchBox",
+            "TARGET_TEMP_DIR_SUFFIX" : "-p",
+            "TVOS_DEPLOYMENT_TARGET" : "15.0",
+            "WATCHOS_DEPLOYMENT_TARGET" : "9.0",
+            "XROS_DEPLOYMENT_TARGET" : "1.0"
+          },
+          "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDCONFIG_1",
+          "impartedBuildProperties" : {
+            "buildSettings" : {
+
+            }
+          },
+          "name" : "Release"
+        }
+      ],
+      "buildPhases" : [
+        {
+          "buildFiles" : [
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_0",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::0",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_1",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::1",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_2",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::2",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_3",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::3",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_4",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::4",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            }
+          ],
+          "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0",
+          "type" : "com.apple.buildphase.sources"
+        }
+      ],
+      "buildRules" : [
+
+      ],
+      "customTasks" : [
+
+      ],
+      "dependencies" : [
+
+      ],
+      "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox",
+      "name" : "NotchBox-product",
+      "productReference" : {
+        "guid" : "PRODUCTREF-PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox",
+        "name" : "$(EXECUTABLE_NAME)",
+        "type" : "file"
+      },
+      "productTypeIdentifier" : "com.apple.product-type.tool",
+      "type" : "standard"
+    },
+    "signature" : "71f06d5d50835ac8aa3e6eabeb48f23aed93ecf6942a048c5d66fc278cd63d0b",
+    "type" : "target"
+  },
+  {
+    "contents" : {
+      "approvedByUser" : "true",
+      "buildConfigurations" : [
+        {
+          "buildSettings" : {
+            "DEFINES_MODULE" : "YES",
+            "GENERATE_EMBED_IN_CODE_ACCESSORS" : "YES",
+            "GENERATE_PRELINK_OBJECT_FILE" : "NO",
+            "GENERATE_RESOURCE_ACCESSORS" : "YES",
+            "MODULEMAP_FILE_CONTENTS" : "module NotchBox {\nheader \"NotchBox-Swift.h\"\nexport *\n}",
+            "MODULEMAP_PATH" : "$(GENERATED_MODULEMAP_DIR)/NotchBox.modulemap",
+            "OTHER_LDFLAGS" : [
+              "$(inherited)",
+              "-framework",
+              "Cocoa",
+              "-framework",
+              "CoreGraphics"
+            ],
+            "OTHER_SWIFT_FLAGS" : [
+              "$(inherited)",
+              "-Xfrontend",
+              "-entry-point-function-name",
+              "-Xfrontend",
+              "NotchBox_main"
+            ],
+            "PACKAGE_RESOURCE_TARGET_KIND" : "regular",
+            "PRODUCT_BUNDLE_IDENTIFIER" : "betternotch.NotchBox",
+            "PRODUCT_MODULE_NAME" : "NotchBox",
+            "PRODUCT_NAME" : "$(TARGET_NAME)",
+            "SDKROOT" : "auto",
+            "SDK_VARIANT" : "auto",
+            "STRIP_INSTALLED_PRODUCT" : "NO",
+            "SUPPORTS_TEXT_BASED_API" : "NO",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
+            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_OBJC_INTERFACE_HEADER_DIR" : "$(GENERATED_MODULEMAP_DIR)",
+            "SWIFT_OBJC_INTERFACE_HEADER_NAME" : "NotchBox-Swift.h",
+            "SWIFT_PACKAGE_NAME" : "betternotch",
+            "SWIFT_VERSION" : "5",
+            "SYMBOL_GRAPH_EXTRACTOR_OUTPUT_DIR" : "$(TARGET_BUILD_DIR)/$(CURRENT_ARCH)/NotchBox.symbolgraphs",
+            "TAPI_DYLIB_INSTALL_NAME" : "NotchBox",
+            "TARGET_BUILD_DIR" : "$(TARGET_BUILD_DIR)/ExecutableModules",
+            "TARGET_NAME" : "NotchBox--3D72B9DE31DFD8D3-testable",
+            "TARGET_TEMP_DIR_SUFFIX" : "-t"
+          },
+          "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDCONFIG_0",
+          "impartedBuildProperties" : {
+            "buildSettings" : {
+              "FRAMEWORK_SEARCH_PATHS" : [
+                "$(BUILT_PRODUCTS_DIR)/PackageFrameworks",
+                "$(inherited)"
+              ],
+              "LD_RUNPATH_SEARCH_PATHS" : [
+                "$(RPATH_ORIGIN)",
+                "$(BUILT_PRODUCTS_DIR)/PackageFrameworks",
+                "$(inherited)"
+              ],
+              "LD_WARN_DUPLICATE_LIBRARIES" : "NO",
+              "LIBRARY_SEARCH_PATHS[__platform_filter=windows-msvc]" : [
+                "$(inherited)",
+                "$(TARGET_BUILD_DIR)/ExecutableModules"
+              ],
+              "OTHER_CFLAGS" : [
+                "-fmodule-map-file=$(GENERATED_MODULEMAP_DIR)/NotchBox.modulemap",
+                "$(inherited)"
+              ],
+              "OTHER_LDFLAGS" : [
+                "$(inherited)",
+                "-framework",
+                "Cocoa",
+                "-framework",
+                "CoreGraphics"
+              ]
+            }
+          },
+          "name" : "Debug"
+        },
+        {
+          "buildSettings" : {
+            "DEFINES_MODULE" : "YES",
+            "GENERATE_EMBED_IN_CODE_ACCESSORS" : "YES",
+            "GENERATE_PRELINK_OBJECT_FILE" : "NO",
+            "GENERATE_RESOURCE_ACCESSORS" : "YES",
+            "MODULEMAP_FILE_CONTENTS" : "module NotchBox {\nheader \"NotchBox-Swift.h\"\nexport *\n}",
+            "MODULEMAP_PATH" : "$(GENERATED_MODULEMAP_DIR)/NotchBox.modulemap",
+            "OTHER_LDFLAGS" : [
+              "$(inherited)",
+              "-framework",
+              "Cocoa",
+              "-framework",
+              "CoreGraphics"
+            ],
+            "OTHER_SWIFT_FLAGS" : [
+              "$(inherited)",
+              "-Xfrontend",
+              "-entry-point-function-name",
+              "-Xfrontend",
+              "NotchBox_main"
+            ],
+            "PACKAGE_RESOURCE_TARGET_KIND" : "regular",
+            "PRODUCT_BUNDLE_IDENTIFIER" : "betternotch.NotchBox",
+            "PRODUCT_MODULE_NAME" : "NotchBox",
+            "PRODUCT_NAME" : "$(TARGET_NAME)",
+            "SDKROOT" : "auto",
+            "SDK_VARIANT" : "auto",
+            "STRIP_INSTALLED_PRODUCT" : "NO",
+            "SUPPORTS_TEXT_BASED_API" : "NO",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
+            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_OBJC_INTERFACE_HEADER_DIR" : "$(GENERATED_MODULEMAP_DIR)",
+            "SWIFT_OBJC_INTERFACE_HEADER_NAME" : "NotchBox-Swift.h",
+            "SWIFT_PACKAGE_NAME" : "betternotch",
+            "SWIFT_VERSION" : "5",
+            "SYMBOL_GRAPH_EXTRACTOR_OUTPUT_DIR" : "$(TARGET_BUILD_DIR)/$(CURRENT_ARCH)/NotchBox.symbolgraphs",
+            "TAPI_DYLIB_INSTALL_NAME" : "NotchBox",
+            "TARGET_BUILD_DIR" : "$(TARGET_BUILD_DIR)/ExecutableModules",
+            "TARGET_NAME" : "NotchBox--3D72B9DE31DFD8D3-testable",
+            "TARGET_TEMP_DIR_SUFFIX" : "-t"
+          },
+          "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDCONFIG_1",
+          "impartedBuildProperties" : {
+            "buildSettings" : {
+              "FRAMEWORK_SEARCH_PATHS" : [
+                "$(BUILT_PRODUCTS_DIR)/PackageFrameworks",
+                "$(inherited)"
+              ],
+              "LD_RUNPATH_SEARCH_PATHS" : [
+                "$(RPATH_ORIGIN)",
+                "$(inherited)"
+              ],
+              "LD_WARN_DUPLICATE_LIBRARIES" : "NO",
+              "LIBRARY_SEARCH_PATHS[__platform_filter=windows-msvc]" : [
+                "$(inherited)",
+                "$(TARGET_BUILD_DIR)/ExecutableModules"
+              ],
+              "OTHER_CFLAGS" : [
+                "-fmodule-map-file=$(GENERATED_MODULEMAP_DIR)/NotchBox.modulemap",
+                "$(inherited)"
+              ],
+              "OTHER_LDFLAGS" : [
+                "$(inherited)",
+                "-framework",
+                "Cocoa",
+                "-framework",
+                "CoreGraphics"
+              ]
+            }
+          },
+          "name" : "Release"
+        }
+      ],
+      "buildPhases" : [
+        {
+          "buildFiles" : [
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_0",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::0",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_1",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::1",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_2",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::2",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_3",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::3",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_4",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::4",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
+            }
+          ],
+          "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0",
+          "type" : "com.apple.buildphase.sources"
+        }
+      ],
+      "buildRules" : [
+
+      ],
+      "customTasks" : [
+
+      ],
+      "dependencies" : [
+
+      ],
+      "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable",
+      "name" : "NotchBox",
+      "productReference" : {
+        "guid" : "PRODUCTREF-PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable",
+        "name" : "$(EXECUTABLE_NAME)",
+        "type" : "file"
+      },
+      "productTypeIdentifier" : "org.swift.product-type.common.object",
+      "type" : "standard"
+    },
+    "signature" : "b11c4c7c1c8066d0a0388d616748180b8bde5cf61763ca881920a737afd5e4a9",
+    "type" : "target"
   },
   {
     "contents" : {
@@ -306,11 +833,11 @@
       "projectIsPackage" : "true",
       "projectName" : "Aggregate",
       "targets" : [
-        "35add4d65328a3579b85fd110481a58d5f1190b1a8da999d67d6f610c2ea5bf8",
-        "1fe4ad502f7197bd89e3da52c4692458f7a3575186b467ec3dd8941fcd5bf7ec"
+        "8fe940ff664165aa35c5ee7c116866d6aa580183e1623ce81073cbf713c46098",
+        "10df2cb77e26bf724339d780706ecac78618ea24f194a94397d2109b41fe00d0"
       ]
     },
-    "signature" : "fff6a6176e2faeff68b5a1b357f7899d4b2317754f188e2e308458ab372ebdce",
+    "signature" : "2fe4a7fafe4f61e1ee2a28439d0c33e1acb1b8d5266d22fd5059da7ce44ad32b",
     "type" : "project"
   },
   {
@@ -351,13 +878,24 @@
 
       ],
       "dependencies" : [
+        {
+          "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox",
+          "platformFilters" : [
 
+          ]
+        },
+        {
+          "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable",
+          "platformFilters" : [
+
+          ]
+        }
       ],
       "guid" : "ALL-INCLUDING-TESTS",
       "name" : "AllIncludingTests",
       "type" : "aggregate"
     },
-    "signature" : "35add4d65328a3579b85fd110481a58d5f1190b1a8da999d67d6f610c2ea5bf8",
+    "signature" : "8fe940ff664165aa35c5ee7c116866d6aa580183e1623ce81073cbf713c46098",
     "type" : "target"
   },
   {
@@ -398,13 +936,24 @@
 
       ],
       "dependencies" : [
+        {
+          "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox",
+          "platformFilters" : [
 
+          ]
+        },
+        {
+          "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable",
+          "platformFilters" : [
+
+          ]
+        }
       ],
       "guid" : "ALL-EXCLUDING-TESTS",
       "name" : "AllExcludingTests",
       "type" : "aggregate"
     },
-    "signature" : "1fe4ad502f7197bd89e3da52c4692458f7a3575186b467ec3dd8941fcd5bf7ec",
+    "signature" : "10df2cb77e26bf724339d780706ecac78618ea24f194a94397d2109b41fe00d0",
     "type" : "target"
   }
 ]
