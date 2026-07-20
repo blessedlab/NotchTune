@@ -158,39 +158,13 @@ struct NotchBoxView: View {
             Spacer().frame(height: 16)
         }
         .frame(width: 300, height: 180)
-        .background {
-            GeometryReader { geo in
-                if let coverImage = coverImage {
-                    Image(nsImage: coverImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geo.size.width, height: geo.size.height)
-                        .blur(radius: 40)
-                        .saturation(1.3)
-                        .scaleEffect(1.2)
-                } else {
-                    Color.black
-                }
-            }
-        }
-        .background(.ultraThinMaterial)
-        .overlay {
-            GeometryReader { geo in
-                LinearGradient(
-                    colors: [
-                        Color.black.opacity(0.7),
-                        Color.black.opacity(0.3),
-                        Color.clear
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .frame(width: geo.size.width, height: geo.size.height)
-            }
-        }
+        .background(
+            NotchShape()
+                .fill(Color.black)
+        )
         .overlay(
             NotchBorderShape()
-                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                .stroke(Color.white.opacity(0.2), lineWidth: 1)
         )
         .clipShape(NotchShape())
         .onAppear {
