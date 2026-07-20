@@ -184,7 +184,7 @@ class NotchOverlayWindow: NSWindow {
         let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
 
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.25
+            context.duration = 0.3
             context.timingFunction = CAMediaTimingFunction(controlPoints: 0.55, 0.0, 0.85, 0.36)
             context.allowsImplicitAnimation = true
             self.animator().setFrame(collapsedRect, display: true)

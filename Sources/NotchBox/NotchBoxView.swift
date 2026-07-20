@@ -3,8 +3,7 @@ import SwiftUI
 struct NotchShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let maxRadius: CGFloat = 20
-        let radius = min(maxRadius, rect.height / 2, rect.width / 2)
+        let radius: CGFloat = 20
 
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
@@ -28,8 +27,7 @@ struct NotchShape: Shape {
 
 struct NotchBorderShape: Shape {
     func path(in rect: CGRect) -> Path {
-        let maxRadius: CGFloat = 20
-        let radius = min(maxRadius, rect.height / 2, rect.width / 2)
+        let radius: CGFloat = 20
         var path = Path()
 
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))
