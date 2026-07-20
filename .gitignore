@@ -1,3 +1,4 @@
 .build/
 *.xcodeproj/
 DerivedData/
+docs/
