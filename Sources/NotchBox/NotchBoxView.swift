@@ -105,14 +105,26 @@ struct NotchBoxView: View {
 
             Spacer().frame(height: 10)
 
-            WaveformSeekBar(
-                progress: CGFloat(trackInfo.progress),
-                isPlaying: trackInfo.isPlaying,
-                activeColor: .white
-            ) { newProgress in
-                seekTo(progress: newProgress)
+            HStack(spacing: 8) {
+                Text(formatTime(trackInfo.progress * trackInfo.duration))
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.5))
+                    .frame(width: 32, alignment: .trailing)
+
+                WaveformSeekBar(
+                    progress: CGFloat(trackInfo.progress),
+                    isPlaying: trackInfo.isPlaying,
+                    activeColor: .white
+                ) { newProgress in
+                    seekTo(progress: newProgress)
+                }
+
+                Text(formatTime(trackInfo.duration))
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.5))
+                    .frame(width: 32, alignment: .leading)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 12)
 
             Spacer().frame(height: 10)
 
@@ -148,13 +160,39 @@ struct NotchBoxView: View {
             Spacer().frame(height: 16)
         }
         .frame(width: 300, height: 180)
-        .background(
-            NotchShape()
-                .fill(Color.black)
-        )
+        .background {
+            GeometryReader { geo in
+                if let coverImage = coverImage {
+                    Image(nsImage: coverImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .blur(radius: 40)
+                        .saturation(1.3)
+                        .scaleEffect(1.2)
+                } else {
+                    Color.black
+                }
+            }
+        }
+        .background(.ultraThinMaterial)
+        .overlay {
+            GeometryReader { geo in
+                LinearGradient(
+                    colors: [
+                        Color.black.opacity(0.7),
+                        Color.black.opacity(0.3),
+                        Color.clear
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(width: geo.size.width, height: geo.size.height)
+            }
+        }
         .overlay(
             NotchBorderShape()
-                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                .stroke(Color.white.opacity(0.15), lineWidth: 1)
         )
         .clipShape(NotchShape())
         .onAppear {
@@ -179,6 +217,12 @@ struct NotchBoxView: View {
                 }
             }
         }.resume()
+    }
+
+    private func formatTime(_ seconds: Double) -> String {
+        guard seconds.isFinite, seconds >= 0 else { return "0:00" }
+        let s = Int(seconds)
+        return String(format: "%d:%02d", s / 60, s % 60)
     }
 
     private func seekTo(progress: CGFloat) {
