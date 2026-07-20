@@ -7,19 +7,18 @@ class NotchOverlayWindow: NSWindow {
     private var isHoveringOverNotch = false
     private var isHoveringOverWindow = false
     private var notchView: NotchBoxView?
+    private var isShowing = false
 
     init() {
         let screen = NSScreen.main!
-        let screenWidth = screen.frame.width
+        let screenFrame = screen.frame
         let windowWidth: CGFloat = 300
-        let windowHeight: CGFloat = 200
+        let windowHeight: CGFloat = 100
 
-        let windowRect = NSRect(
-            x: (screenWidth - windowWidth) / 2,
-            y: screen.frame.height - windowHeight,
-            width: windowWidth,
-            height: windowHeight
-        )
+        let x = (screenFrame.width - windowWidth) / 2
+        let y = screenFrame.height - windowHeight - 5
+
+        let windowRect = NSRect(x: x, y: y, width: windowWidth, height: windowHeight)
 
         super.init(contentRect: windowRect, styleMask: .borderless, backing: .buffered, defer: false)
 
@@ -29,20 +28,22 @@ class NotchOverlayWindow: NSWindow {
         self.hidesOnDeactivate = false
         self.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         self.isMovableByWindowBackground = false
+        self.acceptsMouseMovedEvents = true
 
         let contentView = NotchBoxView(trackName: "No track playing")
         self.contentView = NSHostingView(rootView: contentView)
         self.notchView = contentView
 
         self.alphaValue = 0
+        self.orderOut(nil)
     }
 
     func startTracking() {
-        globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .leftMouseDown, .rightMouseDown]) { [weak self] event in
+        globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved]) { [weak self] event in
             self?.handleGlobalMouseEvent(event)
         }
 
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved, .leftMouseDown, .rightMouseDown]) { [weak self] event in
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved, .leftMouseDown]) { [weak self] event in
             self?.handleLocalMouseEvent(event)
             return event
         }
@@ -62,19 +63,22 @@ class NotchOverlayWindow: NSWindow {
     private func handleGlobalMouseEvent(_ event: NSEvent) {
         let mouseLocation = NSEvent.mouseLocation
         let screen = NSScreen.main!
-        let notchCenterX = screen.frame.width / 2
+        let screenFrame = screen.frame
+        let notchCenterX = screenFrame.width / 2
         let notchWidth: CGFloat = 220
         let notchHeight: CGFloat = 30
 
-        let isInNotchZone = mouseLocation.x >= (notchCenterX - notchWidth / 2) &&
-                             mouseLocation.x <= (notchCenterX + notchWidth / 2) &&
-                             mouseLocation.y >= (screen.frame.height - notchHeight) &&
-                             mouseLocation.y <= screen.frame.height
+        let mouseX = mouseLocation.x
+        let mouseY = mouseLocation.y
 
-        if isInNotchZone && !isHoveringOverNotch {
+        let isInNotchZone = mouseX >= (notchCenterX - notchWidth / 2) &&
+                             mouseX <= (notchCenterX + notchWidth / 2) &&
+                             mouseY >= (screenFrame.height - notchHeight)
+
+        if isInNotchZone && !isHoveringOverNotch && !isShowing {
             isHoveringOverNotch = true
             showWindow()
-        } else if !isInNotchZone && !isHoveringOverWindow {
+        } else if !isInNotchZone && !isHoveringOverWindow && isShowing {
             isHoveringOverNotch = false
             hideWindow()
         }
@@ -102,24 +106,29 @@ class NotchOverlayWindow: NSWindow {
 
         NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
 
+        self.alphaValue = 0
         self.orderFront(nil)
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.5
+
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.4
             context.timingFunction = CAMediaTimingFunction(name: .easeOut)
             context.allowsImplicitAnimation = true
             self.animator().alphaValue = 1.0
-        }
+        }, completionHandler: nil)
+
+        isShowing = true
     }
 
     private func hideWindow() {
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.3
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.25
             context.timingFunction = CAMediaTimingFunction(name: .easeIn)
             context.allowsImplicitAnimation = true
             self.animator().alphaValue = 0.0
-        } completionHandler: { [weak self] in
+        }, completionHandler: { [weak self] in
             self?.orderOut(nil)
-        }
+            self?.isShowing = false
+        })
     }
 
     deinit {

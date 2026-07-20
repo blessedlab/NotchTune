@@ -5,11 +5,11 @@
       "name" : "NotchBox",
       "path" : "/Users/daniel/Documents/BetterNotch",
       "projects" : [
-        "2897c5c8b7f0518023c662592d5799b4f8ad94763ee5a7a4fb0573941712d85e",
+        "a17f2cc83b031688d07fa63f15283bf50856dd7390973611f1d702a5761383d7",
         "2fe4a7fafe4f61e1ee2a28439d0c33e1acb1b8d5266d22fd5059da7ce44ad32b"
       ]
     },
-    "signature" : "5f25f8483dfd8dacceaf0dc627ed9a282cfd3808736a17ab39e0864bb46eb321",
+    "signature" : "210472f5a6108d999e0a0a1d990123dbe616d3cfafd7a15baa78a1aab2c0cb3b",
     "type" : "workspace"
   },
   {
@@ -237,6 +237,14 @@
                 "path" : "TrackInfoFetcher.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_5",
+                "name" : "main.swift",
+                "path" : "main.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
               }
             ],
             "guid" : "PACKAGE:betternotch::MAINGROUP::REF_2",
@@ -286,6 +294,14 @@
                 "path" : "TrackInfoFetcher.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_5",
+                "name" : "main.swift",
+                "path" : "main.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
               }
             ],
             "guid" : "PACKAGE:betternotch::MAINGROUP::REF_3",
@@ -307,12 +323,12 @@
       "projectIsPackage" : "true",
       "projectName" : "NotchBox",
       "targets" : [
-        "71f06d5d50835ac8aa3e6eabeb48f23aed93ecf6942a048c5d66fc278cd63d0b",
-        "b11c4c7c1c8066d0a0388d616748180b8bde5cf61763ca881920a737afd5e4a9",
+        "9c50faf665e91890a94c0e84b71d56ea287dd9de0adcd62ba9643e2d91fda84a",
+        "27706ea17a3b450f9c458088af84a73e496a4c02e8c1bc4a3f8b3be9cd3111be",
         "4420a40101964df7427425af3dd76e80eb961af12967e7a6fea9a0c8ae0d1d30"
       ]
     },
-    "signature" : "2897c5c8b7f0518023c662592d5799b4f8ad94763ee5a7a4fb0573941712d85e",
+    "signature" : "a17f2cc83b031688d07fa63f15283bf50856dd7390973611f1d702a5761383d7",
     "type" : "project"
   },
   {
@@ -350,10 +366,10 @@
             "PRODUCT_NAME" : "$(TARGET_NAME)",
             "SDKROOT" : "auto",
             "SDK_VARIANT" : "auto",
-            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "YES",
             "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
             "SWIFT_INSTALL_MODULE" : "NO",
-            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_LIBRARIES_ONLY" : "NO",
             "SWIFT_PACKAGE_NAME" : "betternotch",
             "SWIFT_VERSION" : "5",
             "SYMBOL_GRAPH_EXTRACTOR_OUTPUT_DIR" : "$(TARGET_BUILD_DIR)/$(CURRENT_ARCH)/NotchBox.symbolgraphs",
@@ -402,10 +418,10 @@
             "PRODUCT_NAME" : "$(TARGET_NAME)",
             "SDKROOT" : "auto",
             "SDK_VARIANT" : "auto",
-            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "YES",
             "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
             "SWIFT_INSTALL_MODULE" : "NO",
-            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_LIBRARIES_ONLY" : "NO",
             "SWIFT_PACKAGE_NAME" : "betternotch",
             "SWIFT_VERSION" : "5",
             "SYMBOL_GRAPH_EXTRACTOR_OUTPUT_DIR" : "$(TARGET_BUILD_DIR)/$(CURRENT_ARCH)/NotchBox.symbolgraphs",
@@ -471,6 +487,15 @@
 
               ],
               "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_2::REF_5",
+              "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0::5",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
             }
           ],
           "guid" : "PACKAGE-PRODUCT:betternotch_NotchBox.NotchBox::BUILDPHASE_0",
@@ -496,7 +521,7 @@
       "productTypeIdentifier" : "com.apple.product-type.tool",
       "type" : "standard"
     },
-    "signature" : "71f06d5d50835ac8aa3e6eabeb48f23aed93ecf6942a048c5d66fc278cd63d0b",
+    "signature" : "9c50faf665e91890a94c0e84b71d56ea287dd9de0adcd62ba9643e2d91fda84a",
     "type" : "target"
   },
   {
@@ -533,9 +558,9 @@
             "SDK_VARIANT" : "auto",
             "STRIP_INSTALLED_PRODUCT" : "NO",
             "SUPPORTS_TEXT_BASED_API" : "NO",
-            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "YES",
             "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
-            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_LIBRARIES_ONLY" : "NO",
             "SWIFT_OBJC_INTERFACE_HEADER_DIR" : "$(GENERATED_MODULEMAP_DIR)",
             "SWIFT_OBJC_INTERFACE_HEADER_NAME" : "NotchBox-Swift.h",
             "SWIFT_PACKAGE_NAME" : "betternotch",
@@ -608,9 +633,9 @@
             "SDK_VARIANT" : "auto",
             "STRIP_INSTALLED_PRODUCT" : "NO",
             "SUPPORTS_TEXT_BASED_API" : "NO",
-            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "NO",
+            "SWIFT_DISABLE_PARSE_AS_LIBRARY" : "YES",
             "SWIFT_ENABLE_BARE_SLASH_REGEX" : "NO",
-            "SWIFT_LIBRARIES_ONLY" : "YES",
+            "SWIFT_LIBRARIES_ONLY" : "NO",
             "SWIFT_OBJC_INTERFACE_HEADER_DIR" : "$(GENERATED_MODULEMAP_DIR)",
             "SWIFT_OBJC_INTERFACE_HEADER_NAME" : "NotchBox-Swift.h",
             "SWIFT_PACKAGE_NAME" : "betternotch",
@@ -700,6 +725,15 @@
 
               ],
               "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:betternotch::MAINGROUP::REF_3::REF_5",
+              "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0::5",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
             }
           ],
           "guid" : "PACKAGE-TARGET:NotchBox--3D72B9DE31DFD8D3-testable::BUILDPHASE_0",
@@ -725,7 +759,7 @@
       "productTypeIdentifier" : "org.swift.product-type.common.object",
       "type" : "standard"
     },
-    "signature" : "b11c4c7c1c8066d0a0388d616748180b8bde5cf61763ca881920a737afd5e4a9",
+    "signature" : "27706ea17a3b450f9c458088af84a73e496a4c02e8c1bc4a3f8b3be9cd3111be",
     "type" : "target"
   },
   {

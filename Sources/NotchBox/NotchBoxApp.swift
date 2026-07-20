@@ -1,15 +1,5 @@
+import AppKit
 import SwiftUI
-
-@main
-struct NotchBoxApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
-    var body: some Scene {
-        Settings {
-            EmptyView()
-        }
-    }
-}
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var overlayWindow: NotchOverlayWindow?
