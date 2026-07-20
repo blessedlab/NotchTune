@@ -54,7 +54,18 @@ struct NotchBorderShape: Shape {
 
 struct NotchBoxView: View {
     @State var trackName: String
-    @State private var volume: Float = VolumeControl.volume
+    @State private var volume: Float = 0.5
+
+    private var volumeBinding: Binding<Float> {
+        Binding(
+            get: { VolumeControl.volume },
+            set: { newValue in
+                DispatchQueue.main.async {
+                    VolumeControl.volume = newValue
+                }
+            }
+        )
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -75,12 +86,9 @@ struct NotchBoxView: View {
                     .font(.system(size: 10))
                     .foregroundColor(.white.opacity(0.5))
 
-                Slider(value: $volume, in: 0...1)
+                Slider(value: volumeBinding)
                     .tint(.white)
                     .frame(height: 4)
-                    .onChange(of: volume) { _, newValue in
-                        VolumeControl.volume = newValue
-                    }
 
                 Image(systemName: "speaker.wave.3.fill")
                     .font(.system(size: 10))
