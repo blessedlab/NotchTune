@@ -4,7 +4,7 @@
 
 BetterNotch is a lightweight, zero-bloat utility that displays a sleek music player overlay when you hover your mouse near the notch on your MacBook. It reads track info from Spotify running in Safari and gives you full playback control — all from a beautiful, notch-shaped widget.
 
-https://raw.githubusercontent.com/blessedlab/NotchTune/refs/heads/main/movie.mp4
+<video src="movie.mp4" controls width="640"></video>
 
 ## Why BetterNotch?
 
