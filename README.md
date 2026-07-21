@@ -1,14 +1,14 @@
-# BetterNotch
+# NotchTune
 
 **A native macOS music controller that lives in your MacBook's notch.**
 
-BetterNotch is a lightweight, zero-bloat utility that displays a sleek music player overlay when you hover your mouse near the notch on your MacBook. It reads track info from Spotify running in Safari and gives you full playback control — all from a beautiful, notch-shaped widget.
+NotchTune is a lightweight, zero-bloat utility that displays a sleek music player overlay when you hover your mouse near the notch on your MacBook. It reads track info from Spotify running in Safari and gives you full playback control — all from a beautiful, notch-shaped widget.
 
 https://github.com/user-attachments/assets/57db1851-800d-42cc-862c-fcb7c017d148
 
-## Why BetterNotch?
+## Why NotchTune?
 
-| Feature | BetterNotch | Other Notch Apps |
+| Feature | NotchTune | Other Notch Apps |
 |---------|------------|------------------|
 | **Native Swift** | ✅ Pure Swift, no Electron | ❌ Often Electron/web-based |
 | **Resource usage** | ✅ Minimal (~10MB RAM) | ❌ Heavy (100MB+) |
@@ -40,8 +40,8 @@ https://github.com/user-attachments/assets/57db1851-800d-42cc-862c-fcb7c017d148
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/BetterNotch.git
-   cd BetterNotch
+   git clone https://github.com/blessedlab/NotchTune
+   cd NotchTune
    ```
 
 2. **Build the app:**
@@ -77,11 +77,11 @@ If you have the `NotchBox-Classic.app` bundle:
 
 ## Permission Setup
 
-BetterNotch needs two permissions to work correctly. You'll be prompted automatically when you first launch the app.
+NotchTune needs two permissions to work correctly. You'll be prompted automatically when you first launch the app.
 
 ### 1. Accessibility Permission
 
-**Why:** BetterNotch monitors your mouse position globally to detect when you hover near the notch.
+**Why:** NotchTune monitors your mouse position globally to detect when you hover near the notch.
 
 **How to enable:**
 
@@ -100,7 +100,7 @@ BetterNotch needs two permissions to work correctly. You'll be prompted automati
 
 ### 2. Safari Permissions
 
-**Why:** BetterNotch communicates with Safari via AppleScript to read track info and control playback on Spotify's web player.
+**Why:** NotchTune communicates with Safari via AppleScript to read track info and control playback on Spotify's web player.
 
 **How to enable:**
 
@@ -109,7 +109,7 @@ BetterNotch needs two permissions to work correctly. You'll be prompted automati
 3. Make sure **Allow JavaScript from Apple Events** is enabled
 4. If not, check the box to enable it
 
-**Important:** Safari must be running with [open.spotify.com](https://open.spotify.com) loaded in a tab. BetterNotch communicates directly with the Spotify web player through Safari.
+**Important:** Safari must be running with [open.spotify.com](https://open.spotify.com) loaded in a tab. NotchTune communicates directly with the Spotify web player through Safari.
 
 ### 3. Spotify Setup
 
@@ -117,7 +117,7 @@ BetterNotch needs two permissions to work correctly. You'll be prompted automati
 2. Navigate to [open.spotify.com](https://open.spotify.com)
 3. Log in to your Spotify account
 4. Start playing music
-5. Keep Safari open (you can minimize it — BetterNotch reads from the background)
+5. Keep Safari open (you can minimize it — NotchTune reads from the background)
 
 ## Usage
 
@@ -154,7 +154,7 @@ BetterNotch needs two permissions to work correctly. You'll be prompted automati
 ## Architecture
 
 ```
-BetterNotch/
+NotchTune/
 ├── Sources/NotchBox/
 │   ├── main.swift              # App entry point
 │   ├── NotchBoxApp.swift       # AppDelegate, accessibility setup
