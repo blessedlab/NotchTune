@@ -9,7 +9,6 @@ class NotchOverlayWindow: NSWindow {
     private var isAnimating = false
     private let finalWidth: CGFloat = 300
     private let finalHeight: CGFloat = 180
-    private let notchWidth: CGFloat = 220
     private var trackRefreshTimer: Timer?
     private var lastTrackInfo: TrackInfo = .empty
 
@@ -19,10 +18,10 @@ class NotchOverlayWindow: NSWindow {
     init() {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
-        let x = (screenFrame.width - notchWidth) / 2
-        let y = screenFrame.height
+        let x = (screenFrame.width - finalWidth) / 2
+        let y = screenFrame.height - finalHeight
 
-        let windowRect = NSRect(x: x, y: y, width: notchWidth, height: 0)
+        let windowRect = NSRect(x: x, y: y, width: finalWidth, height: finalHeight)
 
         super.init(contentRect: windowRect, styleMask: .borderless, backing: .buffered, defer: false)
 
@@ -180,26 +179,23 @@ class NotchOverlayWindow: NSWindow {
 
         let screen = NSScreen.main!
         let screenFrame = screen.frame
-        let startX = (screenFrame.width - notchWidth) / 2
-        let startY = screenFrame.height
         let finalX = (screenFrame.width - finalWidth) / 2
         let finalY = screenFrame.height - finalHeight
 
-        let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
-        let expandedRect = NSRect(x: finalX, y: finalY, width: finalWidth, height: finalHeight)
+        let fixedRect = NSRect(x: finalX, y: finalY, width: finalWidth, height: finalHeight)
 
-        self.setFrame(collapsedRect, display: false)
+        self.viewModel.animationProgress = 0
+        self.setFrame(fixedRect, display: false)
         self.orderFront(nil)
 
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.27
-            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
-            context.allowsImplicitAnimation = true
-            self.animator().setFrame(expandedRect, display: true)
-        }, completionHandler: { [weak self] in
+        withAnimation(.spring(response: 0.27, dampingFraction: 0.75)) {
+            self.viewModel.animationProgress = 1.0
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
             self?.isShowing = true
             self?.isAnimating = false
-        })
+        }
 
         refreshTrackInfoAsync()
     }
@@ -209,22 +205,14 @@ class NotchOverlayWindow: NSWindow {
         isAnimating = true
         isShowing = false
 
-        let screen = NSScreen.main!
-        let screenFrame = screen.frame
-        let startX = (screenFrame.width - notchWidth) / 2
-        let startY = screenFrame.height
+        withAnimation(.spring(response: 0.27, dampingFraction: 0.85)) {
+            self.viewModel.animationProgress = 0
+        }
 
-        let collapsedRect = NSRect(x: startX, y: startY, width: notchWidth, height: 0)
-
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.27
-            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            context.allowsImplicitAnimation = true
-            self.animator().setFrame(collapsedRect, display: true)
-        }, completionHandler: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
             self?.orderOut(nil)
             self?.isAnimating = false
-        })
+        }
     }
 
     deinit {
