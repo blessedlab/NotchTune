@@ -6,7 +6,7 @@ struct TrackInfoFetcher {
         tell application "Safari"
             set spotifyTab to missing value
             repeat with t in tabs of window 1
-                if URL of t contains "spotify" then
+                if URL of t contains "open.spotify.com" then
                     set spotifyTab to t
                     exit repeat
                 end if
@@ -20,11 +20,16 @@ struct TrackInfoFetcher {
         end tell
         """
 
+        print("[NotchBox] Running AppleScript...")
         guard let output = runOascript(script), !output.isEmpty else {
+            print("[NotchBox] AppleScript returned nil or empty output")
             return .empty
         }
 
+        print("[NotchBox] Raw output: \(output)")
+
         if output == "NO_SPOTIFY_TAB" {
+            print("[NotchBox] No Spotify tab found in Safari window 1")
             return .empty
         }
 
@@ -38,6 +43,7 @@ struct TrackInfoFetcher {
     private static func parseJSON(_ json: String) -> TrackInfo {
         guard let data = json.data(using: .utf8),
               let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            print("[NotchBox] Failed to parse JSON: \(json)")
             return .empty
         }
 
@@ -47,6 +53,8 @@ struct TrackInfoFetcher {
         let progress = Double(obj["p"] as? String ?? "0") ?? 0
         let duration = Double(obj["d"] as? String ?? "0") ?? 1
         let isPlaying = (obj["s"] as? String == "Pause")
+
+        print("[NotchBox] Parsed: title=\(title), artist=\(artist), progress=\(progress), duration=\(duration), isPlaying=\(isPlaying)")
 
         return TrackInfo(
             title: title,
@@ -63,7 +71,7 @@ struct TrackInfoFetcher {
         let script = """
         tell application "Safari"
             repeat with t in tabs of window 1
-                if URL of t contains "spotify" then
+                if URL of t contains "open.spotify.com" then
                     return do JavaScript "\(escaped)" in t
                 end if
             end repeat

@@ -15,24 +15,18 @@ struct MarqueeText: View {
         GeometryReader { geo in
             let containerW = geo.size.width
 
-            ZStack(alignment: .center) {
+            ZStack(alignment: needsScroll ? .leading : .center) {
                 if needsScroll {
                     HStack(spacing: 40) {
                         Text(text)
                             .font(font)
                             .foregroundColor(textColor)
-                            .background(
-                                GeometryReader { textGeo in
-                                    Color.clear.onAppear {
-                                        textWidth = textGeo.size.width
-                                    }
-                                }
-                            )
                         Text(text)
                             .font(font)
                             .foregroundColor(textColor)
                     }
                     .offset(x: offset)
+                    .padding(.leading, 10)
                     .onAppear {
                         containerWidth = containerW
                         startScroll()
@@ -46,22 +40,32 @@ struct MarqueeText: View {
                         .font(font)
                         .foregroundColor(textColor)
                         .lineLimit(1)
-                        .frame(width: containerW, alignment: .center)
-                        .background(
-                            GeometryReader { textGeo in
-                                Color.clear.onAppear {
-                                    textWidth = textGeo.size.width
-                                }
-                            }
-                        )
                 }
             }
+            .frame(width: containerW, alignment: .center)
             .clipped()
-            .onAppear {
-                containerWidth = containerW
-            }
         }
         .frame(height: 20)
+        .background(
+            GeometryReader { bgGeo in
+                Color.clear.onAppear {
+                    containerWidth = bgGeo.size.width
+                }
+            }
+        )
+        .overlay(
+            Text(text)
+                .font(font)
+                .foregroundColor(.clear)
+                .fixedSize()
+                .background(
+                    GeometryReader { textGeo in
+                        Color.clear.onAppear {
+                            textWidth = textGeo.size.width
+                        }
+                    }
+                )
+        )
     }
 
     private func startScroll() {
@@ -69,13 +73,13 @@ struct MarqueeText: View {
         let distance = textWidth + 40
         let duration = distance / 40.0
 
-        offset = 0
+        offset = -textWidth
         withAnimation(.linear(duration: duration)) {
-            offset = -textWidth
+            offset = 0
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + duration + 1.0) {
-            offset = 0
+            offset = -textWidth
             startScroll()
         }
     }
@@ -182,6 +186,8 @@ struct NotchBoxView: View {
                         )
                     }
                 }
+                .frame(width: 200)
+                .offset(y: 3)
             }
             .frame(height: 48)
 

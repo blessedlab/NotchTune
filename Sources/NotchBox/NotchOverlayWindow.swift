@@ -11,6 +11,8 @@ class NotchOverlayWindow: NSWindow {
     private let finalHeight: CGFloat = 180
     private var trackRefreshTimer: Timer?
     private var lastTrackInfo: TrackInfo = .empty
+    private var hasInteracted = false
+    private var workspaceObserver: Any?
 
     private var showWorkItem: DispatchWorkItem?
     private var hideWorkItem: DispatchWorkItem?
@@ -41,6 +43,18 @@ class NotchOverlayWindow: NSWindow {
         self.contentView = NSHostingView(rootView: contentView)
 
         preloadTrackInfo()
+
+        workspaceObserver = NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didActivateApplicationNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            guard let self, self.hasInteracted, self.isShowing, !self.isAnimating else { return }
+            if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
+               app.processIdentifier != ProcessInfo.processInfo.processIdentifier {
+                self.hideWindow()
+            }
+        }
     }
 
     func startTracking() {
@@ -53,7 +67,7 @@ class NotchOverlayWindow: NSWindow {
             return event
         }
 
-        trackRefreshTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        trackRefreshTimer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: true) { [weak self] _ in
             self?.refreshTrackInfoAsync()
         }
     }
@@ -66,6 +80,10 @@ class NotchOverlayWindow: NSWindow {
         if let monitor = localMonitor {
             NSEvent.removeMonitor(monitor)
             localMonitor = nil
+        }
+        if let observer = workspaceObserver {
+            NSWorkspace.shared.notificationCenter.removeObserver(observer)
+            workspaceObserver = nil
         }
         trackRefreshTimer?.invalidate()
         trackRefreshTimer = nil
@@ -138,6 +156,8 @@ class NotchOverlayWindow: NSWindow {
             guard !isHoveringOverWindow() else { return }
             guard hideWorkItem == nil else { return }
 
+            if hasInteracted { return }
+
             let work = DispatchWorkItem { [weak self] in
                 self?.hideWorkItem = nil
                 self?.hideWindow()
@@ -153,21 +173,13 @@ class NotchOverlayWindow: NSWindow {
     }
 
     private func handleLocalMouseEvent(_ event: NSEvent) {
-        let mouseLocation = NSEvent.mouseLocation
-        let isInsideWindow = frame.contains(mouseLocation)
-
-        if !isInsideWindow && isShowing && !isAnimating && !isInNotchZone(mouseLocation) {
-            hideWorkItem?.cancel()
-            hideWorkItem = nil
-
-            guard hideWorkItem == nil else { return }
-
-            let work = DispatchWorkItem { [weak self] in
-                self?.hideWorkItem = nil
-                self?.hideWindow()
+        if event.type == .leftMouseDown {
+            let mouseLocation = NSEvent.mouseLocation
+            if frame.contains(mouseLocation) {
+                hasInteracted = true
+                hideWorkItem?.cancel()
+                hideWorkItem = nil
             }
-            hideWorkItem = work
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
         }
     }
 
@@ -204,6 +216,7 @@ class NotchOverlayWindow: NSWindow {
         guard isShowing else { return }
         isAnimating = true
         isShowing = false
+        hasInteracted = false
 
         withAnimation(.spring(response: 0.27, dampingFraction: 0.85)) {
             self.viewModel.animationProgress = 0

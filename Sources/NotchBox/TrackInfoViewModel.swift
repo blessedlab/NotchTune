@@ -19,11 +19,19 @@ class TrackInfoViewModel: ObservableObject {
     }
 
     func update(from info: TrackInfo) {
+        let stateChanged = rawIsPlaying != info.isPlaying ||
+            trackInfo.title != info.title ||
+            trackInfo.artist != info.artist ||
+            trackInfo.coverArtURL != info.coverArtURL
+
         rawProgress = info.progress
         rawDuration = max(info.duration, 1)
         rawIsPlaying = info.isPlaying
         lastUpdateTime = CACurrentMediaTime()
-        trackInfo = info
+
+        if stateChanged || !rawIsPlaying {
+            trackInfo = info
+        }
     }
 
     private func tick() {
@@ -41,7 +49,7 @@ class TrackInfoViewModel: ObservableObject {
             coverArtURL: trackInfo.coverArtURL,
             progress: clamped,
             duration: rawDuration,
-            isPlaying: trackInfo.isPlaying
+            isPlaying: true
         )
     }
 
