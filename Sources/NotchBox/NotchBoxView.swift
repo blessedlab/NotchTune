@@ -172,7 +172,12 @@ struct NotchBoxView: View {
                 .stroke(Color.white.opacity(0.2), lineWidth: 1)
         )
         .clipShape(NotchShape(cornerRadius: 20 * animationProgress))
-        .scaleEffect(y: max(animationProgress, 0.001))
+        .scaleEffect(
+            x: max(animationProgress, 0.001),
+            y: max(animationProgress, 0.001),
+            anchor: .top
+        )
+        .offset(y: -90 * (1 - animationProgress))
         .opacity(animationProgress)
         .onAppear {
             loadCoverArt()
