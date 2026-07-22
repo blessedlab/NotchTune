@@ -15,7 +15,7 @@ struct MarqueeText: View {
         GeometryReader { geo in
             let containerW = geo.size.width
 
-            ZStack(alignment: .leading) {
+            ZStack(alignment: .center) {
                 if needsScroll {
                     HStack(spacing: 40) {
                         Text(text)
@@ -46,7 +46,7 @@ struct MarqueeText: View {
                         .font(font)
                         .foregroundColor(textColor)
                         .lineLimit(1)
-                        .frame(width: containerW, alignment: .leading)
+                        .frame(width: containerW, alignment: .center)
                         .background(
                             GeometryReader { textGeo in
                                 Color.clear.onAppear {
