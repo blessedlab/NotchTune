@@ -1,5 +1,86 @@
 import SwiftUI
 
+struct MarqueeText: View {
+    let text: String
+    var font: Font = .system(size: 14, weight: .semibold, design: .rounded)
+    var textColor: Color = .white
+
+    @State private var textWidth: CGFloat = 0
+    @State private var containerWidth: CGFloat = 0
+    @State private var offset: CGFloat = 0
+
+    private var needsScroll: Bool { textWidth > containerWidth }
+
+    var body: some View {
+        GeometryReader { geo in
+            let containerW = geo.size.width
+
+            ZStack(alignment: .leading) {
+                if needsScroll {
+                    HStack(spacing: 40) {
+                        Text(text)
+                            .font(font)
+                            .foregroundColor(textColor)
+                            .background(
+                                GeometryReader { textGeo in
+                                    Color.clear.onAppear {
+                                        textWidth = textGeo.size.width
+                                    }
+                                }
+                            )
+                        Text(text)
+                            .font(font)
+                            .foregroundColor(textColor)
+                    }
+                    .offset(x: offset)
+                    .onAppear {
+                        containerWidth = containerW
+                        startScroll()
+                    }
+                    .onChange(of: text) { _, _ in
+                        offset = 0
+                        startScroll()
+                    }
+                } else {
+                    Text(text)
+                        .font(font)
+                        .foregroundColor(textColor)
+                        .lineLimit(1)
+                        .frame(width: containerW, alignment: .leading)
+                        .background(
+                            GeometryReader { textGeo in
+                                Color.clear.onAppear {
+                                    textWidth = textGeo.size.width
+                                }
+                            }
+                        )
+                }
+            }
+            .clipped()
+            .onAppear {
+                containerWidth = containerW
+            }
+        }
+        .frame(height: 20)
+    }
+
+    private func startScroll() {
+        guard needsScroll else { return }
+        let distance = textWidth + 40
+        let duration = distance / 40.0
+
+        offset = 0
+        withAnimation(.linear(duration: duration)) {
+            offset = -textWidth
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration + 1.0) {
+            offset = 0
+            startScroll()
+        }
+    }
+}
+
 struct NotchShape: Shape {
     var cornerRadius: CGFloat = 20
 
@@ -87,20 +168,18 @@ struct NotchBoxView: View {
                 }
 
                 VStack(alignment: .center, spacing: 3) {
-                    Text(trackInfo.title.isEmpty ? "No track playing" : trackInfo.title)
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(.white)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .frame(maxWidth: 200)
+                    MarqueeText(
+                        text: trackInfo.title.isEmpty ? "No track playing" : trackInfo.title,
+                        font: .system(size: 14, weight: .semibold, design: .rounded),
+                        textColor: .white
+                    )
 
                     if !trackInfo.artist.isEmpty {
-                        Text(trackInfo.artist)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.5))
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .frame(maxWidth: 200)
+                        MarqueeText(
+                            text: trackInfo.artist,
+                            font: .system(size: 12, weight: .medium, design: .rounded),
+                            textColor: .white.opacity(0.5)
+                        )
                     }
                 }
             }
