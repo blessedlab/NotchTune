@@ -34,7 +34,11 @@ class NotchOverlayWindow: NSWindow {
         self.isMovableByWindowBackground = false
         self.acceptsMouseMovedEvents = true
 
-        let contentView = NotchBoxView(viewModel: viewModel)
+        let animationBinding = Binding<CGFloat>(
+            get: { [weak self] in self?.viewModel.animationProgress ?? 0 },
+            set: { [weak self] value in self?.viewModel.animationProgress = value }
+        )
+        let contentView = NotchBoxView(viewModel: viewModel, animationProgress: animationBinding)
         self.contentView = NSHostingView(rootView: contentView)
 
         preloadTrackInfo()

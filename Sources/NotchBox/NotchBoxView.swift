@@ -55,6 +55,7 @@ struct NotchBorderShape: Shape {
 
 struct NotchBoxView: View {
     @ObservedObject var viewModel: TrackInfoViewModel
+    @Binding var animationProgress: CGFloat
     @State private var coverImage: NSImage?
 
     private var trackInfo: TrackInfo { viewModel.trackInfo }
@@ -163,14 +164,16 @@ struct NotchBoxView: View {
         }
         .frame(width: 300, height: 180)
         .background(
-            NotchShape()
+            NotchShape(cornerRadius: 20 * animationProgress)
                 .fill(Color.black)
         )
         .overlay(
-            NotchBorderShape()
+            NotchBorderShape(cornerRadius: 20 * animationProgress)
                 .stroke(Color.white.opacity(0.2), lineWidth: 1)
         )
-        .clipShape(NotchShape())
+        .clipShape(NotchShape(cornerRadius: 20 * animationProgress))
+        .scaleEffect(y: max(animationProgress, 0.001))
+        .opacity(animationProgress)
         .onAppear {
             loadCoverArt()
         }
