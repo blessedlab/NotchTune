@@ -4,7 +4,7 @@
 
 NotchTune is a lightweight, zero-bloat utility that displays a sleek music player overlay when you hover your mouse near the notch on your MacBook. It reads track info from Spotify running in Safari and gives you full playback control — all from a beautiful, notch-shaped widget.
 
-https://github.com/user-attachments/assets/57db1851-800d-42cc-862c-fcb7c017d148
+https://github.com/user-attachments/assets/9b3e374b-1ea2-40ac-8b88-9559f0925d3a
 
 ## Why NotchTune?
 
