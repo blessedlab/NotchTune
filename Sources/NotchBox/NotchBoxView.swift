@@ -62,7 +62,7 @@ struct NotchBoxView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer().frame(height: 40)
+            Spacer().frame(height: 60)
 
             ZStack(alignment: .center) {
                 if let coverImage = coverImage {
@@ -162,7 +162,7 @@ struct NotchBoxView: View {
 
             Spacer().frame(height: 16)
         }
-        .frame(width: 300, height: 180)
+        .frame(width: 300, height: 200)
         .background(
             NotchShape(cornerRadius: 20 * animationProgress)
                 .fill(Color.black)
