@@ -9,7 +9,6 @@ class NotchOverlayWindow: NSWindow {
     private var isAnimating = false
     private let finalWidth: CGFloat = 300
     private let finalHeight: CGFloat = 180
-    private let topExtension: CGFloat = 20
     private var trackRefreshTimer: Timer?
     private var lastTrackInfo: TrackInfo = .empty
 
@@ -20,9 +19,9 @@ class NotchOverlayWindow: NSWindow {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
         let x = (screenFrame.width - finalWidth) / 2
-        let y = screenFrame.height - finalHeight + topExtension
+        let y = screenFrame.height - finalHeight
 
-        let windowRect = NSRect(x: x, y: y, width: finalWidth, height: finalHeight + topExtension)
+        let windowRect = NSRect(x: x, y: y, width: finalWidth, height: finalHeight)
 
         super.init(contentRect: windowRect, styleMask: .borderless, backing: .buffered, defer: false)
 
@@ -181,9 +180,9 @@ class NotchOverlayWindow: NSWindow {
         let screen = NSScreen.main!
         let screenFrame = screen.frame
         let finalX = (screenFrame.width - finalWidth) / 2
-        let finalY = screenFrame.height - finalHeight + topExtension
+        let finalY = screenFrame.height - finalHeight
 
-        let fixedRect = NSRect(x: finalX, y: finalY, width: finalWidth, height: finalHeight + topExtension)
+        let fixedRect = NSRect(x: finalX, y: finalY, width: finalWidth, height: finalHeight)
 
         self.viewModel.animationProgress = 0
         self.setFrame(fixedRect, display: false)
