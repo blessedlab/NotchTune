@@ -4,6 +4,7 @@ import QuartzCore
 
 class TrackInfoViewModel: ObservableObject {
     @Published var trackInfo: TrackInfo = .empty
+    @Published var animationProgress: CGFloat = 0
 
     private var rawProgress: Double = 0
     private var rawDuration: Double = 0
