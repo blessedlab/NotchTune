@@ -1,9 +1,11 @@
 import SwiftUI
 
 struct NotchShape: Shape {
+    var cornerRadius: CGFloat = 20
+
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let radius: CGFloat = 20
+        let radius = cornerRadius
 
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
@@ -26,9 +28,11 @@ struct NotchShape: Shape {
 }
 
 struct NotchBorderShape: Shape {
+    var cornerRadius: CGFloat = 20
+
     func path(in rect: CGRect) -> Path {
-        let radius: CGFloat = 20
         var path = Path()
+        let radius = cornerRadius
 
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - radius))
